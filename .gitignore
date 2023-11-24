@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 # User settings
 /[Uu]serSettings/
+
+# Rider folder
+.idea/
