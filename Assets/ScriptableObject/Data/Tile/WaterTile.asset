@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffa46bb80c397dd48a5788546aec225f, type: 3}
   m_Name: WaterTile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4bc88f744147711438a062eb5925633e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
