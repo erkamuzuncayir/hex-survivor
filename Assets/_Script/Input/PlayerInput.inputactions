@@ -1,5 +1,5 @@
 {
-    "name": "MouseInput",
+    "name": "PlayerInput",
     "maps": [
         {
             "name": "Mouse",

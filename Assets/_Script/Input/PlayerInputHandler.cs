@@ -1,47 +1,65 @@
+using _Script.PersonalAPI.Event;
 using _Script.System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
+using NotImplementedException = System.NotImplementedException;
 
 namespace _Script.Input
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        // Input related
-        public PlayerInput PlayerInput;
-        public InputAction MouseLeftClick;
-        public InputAction MousePosition;
+        // Camera
+        [SerializeField] private Camera _mainCamera;
+        
+        // Unity's InputSystem related
+        public InputActionReference MouseLeftClickReference;
+        public InputActionReference MousePositionReference;
+        private InputAction IA_mouseLeftClick;
+        private InputAction IA_mousePosition;
     
-        // State System
-        [SerializeField] private GameStateMachineSO _gameStateMachineSO;
+        // SO-Based events
+        [SerializeField] private VoidEventSO so_event_onClickPerformed;
+        [SerializeField] private VoidEventSO so_event_onClickCanceled;
     
         // Fills InputAction fields.
         private void Awake()
         {
-            MouseLeftClick = PlayerInput.actions["MouseLeftClick"];
-            MousePosition = PlayerInput.actions["MousePosition"];
+            IA_mouseLeftClick = MouseLeftClickReference.action;
+            IA_mousePosition = MousePositionReference.action;
+            Debug.Log(MouseLeftClickReference.action);
         }
 
         // Subscribes InputAction methods
-        private void Start()
+        private void OnEnable()
         {
-            MouseLeftClick.performed += OnMouseLeftClickPerformed;
+            IA_mousePosition.Enable();
+            IA_mouseLeftClick.Enable();
+            IA_mouseLeftClick.performed += OnMouseLeftClickPerformed;
+            IA_mouseLeftClick.canceled += OnMouseLeftClickCanceled;
+        }
+
+        private void OnDisable()
+        {
+            IA_mousePosition.Disable();
+            IA_mouseLeftClick.Disable();
         }
 
         // Pass inputs to related systems according to game state system.
         private void OnMouseLeftClickPerformed(InputAction.CallbackContext obj)
+        { 
+            Vector2 mouseScreenPos = IA_mousePosition.ReadValue<Vector2>();
+
+            Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(mouseScreenPos);
+            Debug.Log(mouseWorldPos);
+            RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+            Debug.Log(hit.collider.gameObject.name);
+
+        }
+        
+        private void OnMouseLeftClickCanceled(InputAction.CallbackContext obj)
         {
-            switch (_gameStateMachineSO.CurrentGameState)
-            {
-                case GameState.MainMenu:
-                    break;
-                case GameState.PlayerTurn:
-                    break;
-                case GameState.EnemyTurn:
-                    break;
-                default:
-                    Debug.Log($"{_gameStateMachineSO.CurrentGameState} is not implemented!");
-                    break;
-            }
+            //throw new NotImplementedException();
         }
     }
 }
