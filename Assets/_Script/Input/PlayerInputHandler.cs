@@ -27,7 +27,6 @@ namespace _Script.Input
         {
             IA_mouseLeftClick = MouseLeftClickReference.action;
             IA_mousePosition = MousePositionReference.action;
-            Debug.Log(MouseLeftClickReference.action);
         }
 
         // Subscribes InputAction methods
@@ -49,17 +48,14 @@ namespace _Script.Input
         private void OnMouseLeftClickPerformed(InputAction.CallbackContext obj)
         { 
             Vector2 mouseScreenPos = IA_mousePosition.ReadValue<Vector2>();
-
             Vector2 mouseWorldPos = _mainCamera.ScreenToWorldPoint(mouseScreenPos);
-            Debug.Log(mouseWorldPos);
             RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
-            Debug.Log(hit.collider.gameObject.name);
-
+            so_event_onClickPerformed.Raise();
         }
         
         private void OnMouseLeftClickCanceled(InputAction.CallbackContext obj)
         {
-            //throw new NotImplementedException();
+            so_event_onClickCanceled.Raise();
         }
     }
 }

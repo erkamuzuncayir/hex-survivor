@@ -47,5 +47,5 @@ MonoBehaviour:
   _mainCamera: {fileID: 0}
   MouseLeftClickReference: {fileID: 2453145383408150615, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
   MousePositionReference: {fileID: -1340078418098412240, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
-  so_event_onClickPerformed: {fileID: 0}
-  so_event_onClickCanceled: {fileID: 0}
+  so_event_onClickPerformed: {fileID: 11400000, guid: 4181efe5887aa6744a3310bcdc3106df, type: 2}
+  so_event_onClickCanceled: {fileID: 11400000, guid: c4de4e5c57c26184584a3c1b10135ecd, type: 2}
