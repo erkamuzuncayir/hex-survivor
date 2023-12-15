@@ -13,14 +13,15 @@ public enum TileType
 
 public class TileData
 {
-    public TileType TypeOfTile;
-    public Vector3Int Coord { get; }
-    public bool IsPopulated;
+    public TileType TypeOfTile { get; private set; }
+    public Vector3Int Coord { get; private set; }
+    public bool IsPopulated { get; private set; }
     [NonSerialized] public List<TileData> Neighbors;
 
-    public TileData(Vector3Int coord, bool isPopulated)
+    public TileData(Vector3Int coord, TileType typeOfTile, bool isPopulated)
     {
         Coord = coord;
+        TypeOfTile = typeOfTile;
         IsPopulated = isPopulated;
     }
 
