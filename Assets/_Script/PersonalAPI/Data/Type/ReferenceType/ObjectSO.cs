@@ -2,7 +2,7 @@
 
 namespace _Script.PersonalAPI.Data.Type.ReferenceType
 {
-    [CreateAssetMenu(fileName = "ObjectSO", menuName = "Variables/Object")]
+    [CreateAssetMenu(fileName = "ObjectSO", menuName = "Data/Variable/Reference Type/Object")]
     public class ObjectSO : DataSO<Object>
     {
     }
