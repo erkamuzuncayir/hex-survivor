@@ -2,50 +2,38 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace _Scripts.Data.Collections
+namespace _Script.Tile
 {
-    [CreateAssetMenu(fileName = "TileDictionarySO", menuName = "Data/Collection/Tile Dictionary")]
-    public class TileDictionarySO : ScriptableObject
+    public enum TileType
     {
-        public List<HexTile> Tiles = new();
-
-        private void OnEnable()
-        {
-            Tiles.Clear();
-        }
-
-        public HexTile GetTileFromDictionary(Vector3Int coord)
-        {
-            for (int i = 0; i < Tiles.Count; i++)
-            {
-                if (Tiles[i].Coord == coord)
-                    return Tiles[i];
-            }
-
-            return null;
-        }
+        Grass,
+        Water,
+        Fire,
+        Building,
+        Empty
     }
 
     [Serializable]
-    public class HexTile
+    public class TileData
     {
-        [NonSerialized] public List<HexTile> Neighbors;
-        
-        public HexTile(Vector3Int coord, bool isMovable)
+        public TileType TypeOfTile { get; private set; }
+        public Vector3Int Coord { get; private set; }
+        public bool IsPopulated { get; private set; }
+        [NonSerialized] public List<TileData> Neighbors;
+
+        public TileData(Vector3Int coord, TileType typeOfTile, bool isPopulated)
         {
             Coord = coord;
-            IsMovable = isMovable;
+            TypeOfTile = typeOfTile;
+            IsPopulated = isPopulated;
         }
 
-        public Vector3Int Coord;
-        public bool IsMovable;
-
-        public HexTile Connection { get; private set; }
+        public TileData Connection { get; private set; }
         public int GValue { get; private set; }
         public int HValue { get; private set; }
         public int FValue => GValue + HValue;
-
-        public void SetConnection(HexTile hexTile)
+    
+        public void SetConnection(TileData hexTile)
         {
             Connection = hexTile;
         }
@@ -60,7 +48,7 @@ namespace _Scripts.Data.Collections
             HValue = h;
         }
 
-        public int GetDistance(HexTile otherTile)
+        public int GetDistance(TileData otherTile)
         {
             int moveCount = 0;
             Vector3Int tempCoord = Coord;

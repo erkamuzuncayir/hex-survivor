@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _Script.PersonalAPI.Input;
 using _Script.PersonalAPI.StateMachine;
@@ -44,9 +45,31 @@ namespace _Script.System.StateSystem.StateMachine
             }
         }
 
+        private void OnEnable()
+        {
+            _clickInputHandler.OnClickPerformed += OnMouseClickPerformed;
+        }
+
+        private void OnDisable()
+        {
+            _clickInputHandler.OnClickPerformed -= OnMouseClickPerformed;
+        }
+        
         public void OnMouseClickPerformed()
         {
-            
+            switch (CurrentPlayerState)
+            {
+                case SelectedPlayerStateSO:
+                {
+                    HandleState(so_state_PlayerUnselected);
+                    break;
+                }
+                case UnselectedPlayerStateSO:
+                {
+                    HandleState(so_state_PlayerSelected);
+                    break;
+                }
+            }
         }
         
         public void HandleState(PlayerStateSO requestedState)
