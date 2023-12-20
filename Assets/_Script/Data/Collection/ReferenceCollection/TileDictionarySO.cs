@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace _Scripts.Data.Collections
 {
-    [CreateAssetMenu(fileName = "Tile Dictionary")]
+    [CreateAssetMenu(fileName = "TileDictionarySO", menuName = "Data/Collection/Tile Dictionary")]
     public class TileDictionarySO : ScriptableObject
     {
         public List<HexTile> Tiles = new();
