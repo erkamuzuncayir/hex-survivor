@@ -1,9 +1,11 @@
+using System;
+
 namespace _Script.PersonalAPI.Input
 {
     public interface IClickable
     {
-        public void OnClickPerformed();
+        public Action OnClickPerformed { get; set; }
 
-        public void OnClickCanceled();
+        public Action OnClickCanceled { get; set; }
     }
 }

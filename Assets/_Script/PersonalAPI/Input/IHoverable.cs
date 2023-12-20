@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class IHoverable : MonoBehaviour
+namespace _Script.PersonalAPI.Input
 {
-    // Start is called before the first frame update
-    void Start()
+    public interface IHoverable
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public Action OnHover { get; set; }
     }
 }
