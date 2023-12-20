@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - UI_Hover
+  - Player
+  - Enemy
+  - Tilemap
   - 
   - 
   - 
