@@ -19,6 +19,11 @@ namespace _Script.System.StateSystem.State.PlayerState
         {
         }
 
+        private void OnTargetTileSelect()
+        {
+            
+        }
+
         public override void ExitState()
         {
         }
