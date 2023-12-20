@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _Script.PersonalAPI.Data.RuntimeSet
 {
-    public class AddObjectToRuntimeSet : MonoBehaviour
+    public class AddGameObjectToRuntimeSet : MonoBehaviour
     {
         public GameObjectRuntimeSet GameObjectRuntimeSet;
 
