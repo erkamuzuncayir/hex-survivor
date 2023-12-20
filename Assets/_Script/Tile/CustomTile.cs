@@ -1,8 +1,10 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(fileName = "CustomTile", menuName = "Scriptable Tiles/Custom Tile")]
-public class CustomTile : Tile
+namespace _Script.Tile
 {
-    public TileType Type;
+    [CreateAssetMenu(fileName = "CustomTile", menuName = "Data/Scriptable Tiles/Custom Tile")]
+    public class CustomTile : UnityEngine.Tilemaps.Tile
+    {
+        public TileType Type;
+    }
 }
