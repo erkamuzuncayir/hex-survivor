@@ -1,5 +1,56 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &249035386298734801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6182367736508587360}
+  - component: {fileID: 5785444095880938928}
+  m_Layer: 7
+  m_Name: logic_playerStateMachine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6182367736508587360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249035386298734801}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1946717296560988148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5785444095880938928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 249035386298734801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70796445993c0fb4aada8945aa792469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  so_state_PlayerUnselected: {fileID: 11400000, guid: e32ec6347393ebb408f01598aaaa06bb, type: 2}
+  so_state_PlayerSelected: {fileID: 11400000, guid: 5becca22d380258498afca628973c1ad, type: 2}
+  so_state_PlayerIdle: {fileID: 11400000, guid: 579ded08f1e8bba4fbeb4043dd939f5e, type: 2}
+  so_state_PlayerMove: {fileID: 11400000, guid: 0d608386030bcbc4e8f2253dfe62bda5, type: 2}
+  so_state_PlayerAttack: {fileID: 11400000, guid: 9ce144c091f89844dbf7a2acf4ae9e7b, type: 2}
+  _clickInputHandler: {fileID: 1249315006319451290}
+  _go_player: {fileID: 7950778818499142775}
 --- !u!1 &7950778818499142775
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +61,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1946717296560988148}
   - component: {fileID: 1338772939443757236}
+  - component: {fileID: 1249315006319451290}
   m_Layer: 7
   m_Name: pfb_char_player
   m_TagString: Untagged
@@ -31,6 +83,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8084330371669191497}
+  - {fileID: 6182367736508587360}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1338772939443757236
@@ -68,6 +121,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.2}
   m_Size: {x: 0.65, y: 0.9}
   m_Direction: 0
+--- !u!114 &1249315006319451290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7950778818499142775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cdf207db27a6074a93be565c04358bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7689497630965647568
 PrefabInstance:
   m_ObjectHideFlags: 0
