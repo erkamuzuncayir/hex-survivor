@@ -45,6 +45,11 @@ namespace _Script.System.StateSystem.StateMachine
             }
         }
 
+        private void Start()
+        {
+            HandleState(so_state_PlayerUnselected);
+        }
+
         private void OnEnable()
         {
             _clickInputHandler.OnClickPerformed += OnMouseClickPerformed;
