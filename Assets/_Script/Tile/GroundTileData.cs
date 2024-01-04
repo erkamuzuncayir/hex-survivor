@@ -14,28 +14,28 @@ namespace _Script.Tile
     }
 
     [Serializable]
-    public class TileData
+    public class GroundTileData
     {
         public TileType TypeOfTile { get; private set; }
         public Vector3Int Coord { get; private set; }
         public bool IsPopulated { get; private set; }
-        [NonSerialized] public List<TileData> Neighbors;
+        [NonSerialized] public List<GroundTileData> Neighbors;
 
-        public TileData(Vector3Int coord, TileType typeOfTile, bool isPopulated)
+        public GroundTileData(Vector3Int coord, TileType typeOfTile, bool isPopulated)
         {
             Coord = coord;
             TypeOfTile = typeOfTile;
             IsPopulated = isPopulated;
         }
 
-        public TileData Connection { get; private set; }
+        public GroundTileData Connection { get; private set; }
         public int GValue { get; private set; }
         public int HValue { get; private set; }
         public int FValue => GValue + HValue;
     
-        public void SetConnection(TileData hexTile)
+        public void SetConnection(GroundTileData hexGroundTile)
         {
-            Connection = hexTile;
+            Connection = hexGroundTile;
         }
 
         public void SetGValue(int g)
@@ -48,11 +48,11 @@ namespace _Script.Tile
             HValue = h;
         }
 
-        public int GetDistance(TileData otherTile)
+        public int GetDistance(GroundTileData otherGroundTile)
         {
             int moveCount = 0;
             Vector3Int tempCoord = Coord;
-            Vector3Int destinationCoord = otherTile.Coord;
+            Vector3Int destinationCoord = otherGroundTile.Coord;
             while (tempCoord != destinationCoord)
             {
                 Vector3Int move = new();
