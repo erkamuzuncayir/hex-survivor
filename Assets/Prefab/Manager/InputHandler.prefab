@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f531e03e5ae2f342b6a57beeb5d2597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameStateMachine: {fileID: 11400000, guid: 45b2ba2f26e735841be89cd77f466b19, type: 2}
-  _playerCamRuntimeSet: {fileID: 11400000, guid: 0e7def6454c454b4e9d3568274e1b0e5, type: 2}
+  so_rs_playerCam: {fileID: 11400000, guid: 0e7def6454c454b4e9d3568274e1b0e5, type: 2}
   MouseLeftClickReference: {fileID: 2453145383408150615, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
   MousePositionReference: {fileID: -1340078418098412240, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
-  so_event_onClickPerformed: {fileID: 11400000, guid: 4181efe5887aa6744a3310bcdc3106df, type: 2}
-  so_event_onClickCanceled: {fileID: 11400000, guid: c4de4e5c57c26184584a3c1b10135ecd, type: 2}
