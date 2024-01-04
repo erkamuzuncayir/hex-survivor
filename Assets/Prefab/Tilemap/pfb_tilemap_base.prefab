@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 186612256123148495}
   - component: {fileID: 1653463833267003200}
   - component: {fileID: 7921334691387434418}
+  - component: {fileID: 3870070307541409115}
   - component: {fileID: 7695271777593543526}
   m_Layer: 9
   m_Name: pfb_tilemap_base
@@ -2670,6 +2671,8 @@ TilemapRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2710,6 +2713,7 @@ TilemapCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2898071957518018208}
   m_Enabled: 1
+  serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -2733,11 +2737,25 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &3870070307541409115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2898071957518018208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb806d125beac246bd2e8ed1b32246e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clickInputHandler: {fileID: 7695271777593543526}
 --- !u!114 &7695271777593543526
 MonoBehaviour:
   m_ObjectHideFlags: 0
