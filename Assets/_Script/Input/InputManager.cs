@@ -1,10 +1,5 @@
-using System;
 using _Script.PersonalAPI.Data.RuntimeSet;
-using _Script.PersonalAPI.Event;
 using _Script.PersonalAPI.Input;
-using _Script.System;
-using _Script.System.StateSystem.State;
-using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +8,7 @@ namespace _Script.Input
     public class InputManager : MonoBehaviour
     {
         // Camera
-        [SerializeField] private GameObjectRuntimeSet so_rs_playerCam;
+        [SerializeField] private GameObjectRuntimeSet _so_rs_playerCam;
         private Camera _playerCam;
         
         // Unity's InputSystem related
@@ -43,7 +38,7 @@ namespace _Script.Input
 
         private void Start()
         {
-            _playerCam = so_rs_playerCam.Items[0].GetComponent<Camera>();
+            _playerCam = _so_rs_playerCam.Items[0].GetComponent<Camera>();
         }
 
         private void OnDisable()
@@ -53,7 +48,7 @@ namespace _Script.Input
         }
 
         // Pass inputs to related systems according to game state system.
-        private void OnMouseLeftClickPerformed(InputAction.CallbackContext obj)
+        private void OnMouseLeftClickPerformed(InputAction.CallbackContext inputData)
         { 
             Vector2 mouseScreenPos = _ia_mousePosition.ReadValue<Vector2>();
             Vector2 mouseWorldPos = _playerCam.ScreenToWorldPoint(mouseScreenPos);
@@ -61,8 +56,7 @@ namespace _Script.Input
             
             if (hit.collider.gameObject == null) return;
             if(hit.collider.gameObject.GetComponent<ClickInputHandler>() == null) return;
-
-            hit.collider.gameObject.GetComponent<ClickInputHandler>().OnClickPerformed();
+            hit.collider.gameObject.GetComponent<ClickInputHandler>().OnClickPerformed.Invoke(mouseWorldPos);
         }
         
         private void OnMouseLeftClickCanceled(InputAction.CallbackContext obj)
