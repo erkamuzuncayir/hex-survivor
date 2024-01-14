@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace _Script.System.StateSystem.State.PlayerState
 {
-    [CreateAssetMenu (fileName = "UnselectedPlayerStateSO", menuName = "System/State/Player/Unselected")]
-    public class UnselectedPlayerStateSO : PlayerStateSO
+    [CreateAssetMenu (fileName = "IdleUnselectedPlayerStateSO", menuName = "System/State/Player/Idle-Unselected")]
+    public class IdleUnselectedPlayerStateSO : PlayerStateSO
     {
         public override void InitState(IStateMachine<PlayerStateMachine, PlayerStateSO> stateMachine)
         {
