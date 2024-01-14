@@ -2756,6 +2756,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clickInputHandler: {fileID: 7695271777593543526}
+  _baseTilemap: {fileID: 186612256123148495}
+  _so_tileDictionary: {fileID: 11400000, guid: 8546deb7af6566e4c8edd1ae3d0cfbbe, type: 2}
+  _so_event_SelectedTileDictIndex: {fileID: 11400000, guid: fa8e5fcadbb53bb2e990d232c036f454, type: 2}
+  _playerDataSO: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
 --- !u!114 &7695271777593543526
 MonoBehaviour:
   m_ObjectHideFlags: 0

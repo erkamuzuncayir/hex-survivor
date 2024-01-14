@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f531e03e5ae2f342b6a57beeb5d2597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  so_rs_playerCam: {fileID: 11400000, guid: 0e7def6454c454b4e9d3568274e1b0e5, type: 2}
+  _so_rs_playerCam: {fileID: 11400000, guid: 0e7def6454c454b4e9d3568274e1b0e5, type: 2}
   MouseLeftClickReference: {fileID: 2453145383408150615, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
   MousePositionReference: {fileID: -1340078418098412240, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
