@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88f01192381fea438eb79f3b6a80d4c, type: 3}
   m_Name: so_state_player_offTurn
   m_EditorClassIdentifier: 
-  _playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
+  _playerDataSO: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}

@@ -17,6 +17,6 @@ MonoBehaviour:
   TargetTileDictIndex: 106
   RemainingMoveCount: 3
   AttackRange: 2
-  StepCountBetweenTwoTile: 0.5
+  StepCountBetweenTwoTile: 1
   MoveRegenEndOfTurn: 3
   HealthRegenEndOfTurn: 0

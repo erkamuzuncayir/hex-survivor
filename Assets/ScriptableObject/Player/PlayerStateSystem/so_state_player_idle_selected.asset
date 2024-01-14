@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: so_state_player_idle_selected
   m_EditorClassIdentifier: 
   _so_event_SelectedTileDictIndex: {fileID: 11400000, guid: fa8e5fcadbb53bb2e990d232c036f454, type: 2}
-  _playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
+  _playerDataSO: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
