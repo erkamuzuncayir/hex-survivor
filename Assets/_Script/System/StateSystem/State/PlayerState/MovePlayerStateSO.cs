@@ -30,6 +30,7 @@ namespace _Script.System.StateSystem.State.PlayerState
             _playerTransform = _so_rs_player.Items[0].transform;
         }
 
+        // TODO: Add movement limiter for move 
         public override async void EnterState()
         {
             _movementPath =
