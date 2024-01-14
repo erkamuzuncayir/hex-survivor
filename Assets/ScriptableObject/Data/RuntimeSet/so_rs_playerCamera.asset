@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c38dc59e91ae8e47a6af3293ad61881, type: 3}
-  m_Name: PlayerCamRuntimeSet
+  m_Name: so_rs_playerCamera
   m_EditorClassIdentifier: 
   Items: []
