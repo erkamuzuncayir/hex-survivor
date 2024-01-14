@@ -21,11 +21,5 @@ namespace _Script.PersonalAPI.Event
         {
             EventSO.UnregisterListener(this);
         }
-
-
-        public void OnEventRaised(int param)
-        {
-            Response.Invoke(param);
-        }
     }
 }
