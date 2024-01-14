@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using _Script.Actors;
 using _Script.PersonalAPI.Input;
 using _Script.PersonalAPI.StateMachine;
 using _Script.System.StateSystem.State.PlayerState;
@@ -12,9 +12,9 @@ namespace _Script.System.StateSystem.StateMachine
         // State List and States
         public List<IState<PlayerStateMachine, PlayerStateSO>> AllPlayerStates = new();
         public IState<PlayerStateMachine, PlayerStateSO> CurrentPlayerState;
-        public PlayerStateSO so_state_PlayerUnselected;
-        public PlayerStateSO so_state_PlayerSelected;
-        public PlayerStateSO so_state_PlayerIdle;
+        public PlayerStateSO so_state_PlayerIdle_Unselected;
+        public PlayerStateSO so_state_PlayerIdle_Selected;
+        public PlayerStateSO so_state_PlayerOffTurn;
         public PlayerStateSO so_state_PlayerMove;
         public PlayerStateSO so_state_PlayerAttack;
 
@@ -23,31 +23,33 @@ namespace _Script.System.StateSystem.StateMachine
         
         // Cache fields
         [SerializeField] private GameObject _go_player;
+        [SerializeField] private PlayerDataSO _playerDataSO;
         
         private void Awake()
         {
             FillListWithStates();
-            InitStates();
+            _playerDataSO.PlayerCoord = Vector3Int.zero;
         }
-
+        
         private void FillListWithStates()
         {
-            AllPlayerStates.Add(so_state_PlayerIdle);
+            AllPlayerStates.Add(so_state_PlayerIdle_Unselected);
+            AllPlayerStates.Add(so_state_PlayerIdle_Selected);
+            AllPlayerStates.Add(so_state_PlayerOffTurn);
             AllPlayerStates.Add(so_state_PlayerMove);
             AllPlayerStates.Add(so_state_PlayerAttack);
         }
         
         public void InitStates()
         {
-            for (int i = 0; i < AllPlayerStates.Count; i++)
-            {
-                AllPlayerStates[i].InitState(this);
-            }
+            foreach (IState<PlayerStateMachine, PlayerStateSO> state in AllPlayerStates)
+                state.InitState(this);
         }
 
         private void Start()
         {
-            HandleState(so_state_PlayerUnselected);
+            InitStates();
+            HandleState(so_state_PlayerIdle_Unselected);
         }
 
         private void OnEnable()
@@ -60,18 +62,18 @@ namespace _Script.System.StateSystem.StateMachine
             _clickInputHandler.OnClickPerformed -= OnMouseClickPerformed;
         }
         
-        public void OnMouseClickPerformed()
+        public void OnMouseClickPerformed(Vector2 inputWorldPos)
         {
             switch (CurrentPlayerState)
             {
-                case SelectedPlayerStateSO:
+                case IdleSelectedPlayerStateSO:
                 {
-                    HandleState(so_state_PlayerUnselected);
+                    HandleState(so_state_PlayerIdle_Unselected);
                     break;
                 }
-                case UnselectedPlayerStateSO:
+                case IdleUnselectedPlayerStateSO:
                 {
-                    HandleState(so_state_PlayerSelected);
+                    HandleState(so_state_PlayerIdle_Selected);
                     break;
                 }
             }
