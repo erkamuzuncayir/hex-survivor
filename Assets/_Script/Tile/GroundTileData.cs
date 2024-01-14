@@ -16,13 +16,17 @@ namespace _Script.Tile
     [Serializable]
     public class GroundTileData
     {
+        public int DictIndex { get; private set; }
+        public Vector3 WorldPosition { get; set; }
+        public Vector3Int Coord { get; set; }
         public TileType TypeOfTile { get; private set; }
-        public Vector3Int Coord { get; private set; }
-        public bool IsPopulated { get; private set; }
-        [NonSerialized] public List<GroundTileData> Neighbors;
+        public bool IsPopulated { get; set; }
+        [NonSerialized] public List<GroundTileData> Neighbors = new ();
 
-        public GroundTileData(Vector3Int coord, TileType typeOfTile, bool isPopulated)
+        public GroundTileData(int dictIndex, Vector3 worldPosition, Vector3Int coord, TileType typeOfTile, bool isPopulated)
         {
+            DictIndex = dictIndex;
+            WorldPosition = worldPosition;
             Coord = coord;
             TypeOfTile = typeOfTile;
             IsPopulated = isPopulated;

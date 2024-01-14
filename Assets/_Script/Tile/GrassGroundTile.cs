@@ -1,9 +1,11 @@
-using _Script.Tile;
 using UnityEngine;
 
-public class GrassGroundTile : GroundTileData
+namespace _Script.Tile
 {
-    public GrassGroundTile(Vector3Int coord, TileType typeOfTile, bool isPopulated) : base(coord, typeOfTile, isPopulated)
+    public class GrassGroundTile : GroundTileData
     {
+        public GrassGroundTile(int dictIndex, Vector3 worldPosition, Vector3Int coord, TileType typeOfTile, bool isPopulated) : base(dictIndex, worldPosition, coord, typeOfTile, isPopulated)
+        {
+        }
     }
 }

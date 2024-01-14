@@ -1,9 +1,11 @@
-using _Script.Tile;
 using UnityEngine;
 
-public class WaterGroundTile : GroundTileData
+namespace _Script.Tile
 {
-    public WaterGroundTile(Vector3Int coord, TileType typeOfTile, bool isPopulated) : base(coord, typeOfTile, isPopulated)
+    public class WaterGroundTile : GroundTileData
     {
+        public WaterGroundTile(int dictIndex, Vector3 worldPosition, Vector3Int coord, TileType typeOfTile, bool isPopulated) : base(dictIndex, worldPosition, coord, typeOfTile, isPopulated)
+        {
+        }
     }
 }
