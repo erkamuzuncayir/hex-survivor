@@ -12,7 +12,8 @@ namespace _Script.System.StateSystem.State.PlayerState
     [CreateAssetMenu (fileName = "IdleSelectedPlayerStateSO", menuName = "System/State/Player/Idle-Selected")]
     public class IdleSelectedPlayerStateSO : PlayerStateSO
     {
-        [Header("Systems")] private PlayerStateMachine _playerStateMachine;
+        [Header("Systems")] 
+        private PlayerStateMachine _playerStateMachine;
 
         [Header("Events")]
         [SerializeField] private IntEventSO _so_event_SelectedTileDictIndex;
