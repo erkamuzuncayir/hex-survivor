@@ -58,9 +58,5 @@ namespace _Script.Input
             if(hit.collider.gameObject.GetComponent<ClickInputHandler>() == null) return;
             hit.collider.gameObject.GetComponent<ClickInputHandler>().OnClickPerformed.Invoke(mouseWorldPos);
         }
-        
-        private void OnMouseLeftClickCanceled(InputAction.CallbackContext obj)
-        {
-        }
     }
 }
