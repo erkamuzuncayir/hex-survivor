@@ -2758,7 +2758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb806d125beac246bd2e8ed1b32246e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MousePositionReference: {fileID: -1340078418098412240, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
   _clickInputHandler: {fileID: 7695271777593543526}
   _baseTilemap: {fileID: 186612256123148495}
   _so_tileDictionary: {fileID: 11400000, guid: 8546deb7af6566e4c8edd1ae3d0cfbbe, type: 2}
@@ -2801,14 +2800,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2c55f9da73259468d68e8f25c9fc84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MousePositionReference: {fileID: -1340078418098412240, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
+  _tileHoverOverlay: {fileID: 5951189018986693620, guid: 4a95f366af5e8a23a89f0909ad15cbdc, type: 3}
+  _tileHoverOverlayDefaultCount: 4
+  _tileHoverOverlayMaxCount: 8
   _hoverInputHandler: {fileID: 5934487487472082257}
   _baseTilemap: {fileID: 186612256123148495}
   _so_tileDictionary: {fileID: 11400000, guid: 8546deb7af6566e4c8edd1ae3d0cfbbe, type: 2}
-  _so_system_pathfinding: {fileID: 11400000, guid: df96c8518164d04e0a71bc3f0c2f0e8f, type: 2}
   _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
   _so_state_player_selected: {fileID: 11400000, guid: 5becca22d380258498afca628973c1ad, type: 2}
   _so_state_player_current: {fileID: 11400000, guid: f0ca997c3f2f1664e993574d5dc36beb, type: 2}
+  _so_system_pathfinding: {fileID: 11400000, guid: df96c8518164d04e0a71bc3f0c2f0e8f, type: 2}
 --- !u!114 &5934487487472082257
 MonoBehaviour:
   m_ObjectHideFlags: 0
