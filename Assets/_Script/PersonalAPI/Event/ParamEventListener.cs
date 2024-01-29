@@ -4,13 +4,13 @@ using UnityEngine.Events;
 namespace _Script.PersonalAPI.Event
 {
     /// <summary>
-    ///     This class listens to the IntEventSO.
-    ///     When the event raised, it calls the methods assigned to it with a int parameter.
+    ///     This class listens to the ParamEventSO<T>.
+    ///     When the event raised, it calls the methods assigned to it with a <T> parameter.
     /// </summary>
-    public class IntEventListener : MonoBehaviour
+    public class ParamEventListener<T> : MonoBehaviour
     {
-        public IntEventSO EventSO;
-        public UnityEvent<int> Response;
+        public ParamEventSO<T> EventSO;
+        public UnityEvent<T> Response;
 
         private void OnEnable()
         {
