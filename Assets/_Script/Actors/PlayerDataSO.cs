@@ -6,12 +6,13 @@ namespace _Script.Actors
     [CreateAssetMenu(menuName = "Player/Data", fileName = "PlayerDataSO")]
     public class PlayerDataSO : ScriptableObject
     {
+        [Header("Navigation Data")]
         public Vector3Int PlayerCoord;
         public int PlayerTileDictIndex;
         public int TargetTileDictIndex;
         public GroundTileData TileUnderThePlayer;
 
-        [Header("Gameplay Values")] 
+        [Header("Gameplay Data")] 
         public int RemainingMoveCount;
         public int AttackRange;
         public int Damage { get; }
