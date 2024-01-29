@@ -2804,6 +2804,16 @@ MonoBehaviour:
   _tileHoverOverlayDefaultCount: 4
   _tileHoverOverlayMaxCount: 8
   _hoverInputHandler: {fileID: 5934487487472082257}
+  _mouseClickReference: {fileID: 2453145383408150615, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
+  _ia_mouseClick:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: aa3c29db-2ae0-4de2-96c1-60d559844c73
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   _baseTilemap: {fileID: 186612256123148495}
   _so_tileDictionary: {fileID: 11400000, guid: 8546deb7af6566e4c8edd1ae3d0cfbbe, type: 2}
   _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}

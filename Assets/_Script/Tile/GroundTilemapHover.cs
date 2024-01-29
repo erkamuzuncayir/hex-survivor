@@ -3,12 +3,10 @@ using _Script.Actors;
 using _Script.Data;
 using _Script.System;
 using _Script.System.StateSystem.State.PlayerState;
-using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
 using UnityEngine.Tilemaps;
-using NotImplementedException = System.NotImplementedException;
 
 namespace _Script.Tile
 {
@@ -25,7 +23,8 @@ namespace _Script.Tile
         // Input Handler
         private InputAction _ia_mousePosition;
         [SerializeField] private HoverInputHandler _hoverInputHandler;
-        // TODO: Add if player click somewhere hover will be end.
+        [SerializeField] private InputActionReference _mouseClickReference;
+        private InputAction _ia_mouseClick;
 
         // Tilemap
         [SerializeField] private Tilemap _baseTilemap;
@@ -40,9 +39,10 @@ namespace _Script.Tile
         [SerializeField] private PathfindingSystemSO _so_system_pathfinding;
         private List<GroundTileData> _highlightedPath = new();
         private int _lastTileDictIndex = -1;
-        
+
         private void Awake()
         {
+            _ia_mouseClick = _mouseClickReference;
             CreateTileHoverOverlayPool();
         }
 
@@ -51,7 +51,8 @@ namespace _Script.Tile
             _tileHoverOverlayDefaultCount = _so_playerData.MaxMoveCount;
             _tileHoverOverlayMaxCount = _so_playerData.MaxMoveCount * 5 /*TODO: add max move count in game settings */;
             _pool_tileHoverOverlays = new ObjectPool<GameObject>(CreateTileHoverOverlay, OnGetTileHoverOverlayFromPool,
-                OnReturnTileHoverOverlayToPool, OnDestroyTileHoverOverlay, _COLLECTION_CHECK, _tileHoverOverlayDefaultCount, _tileHoverOverlayMaxCount);
+                OnReturnTileHoverOverlayToPool, OnDestroyTileHoverOverlay, _COLLECTION_CHECK,
+                _tileHoverOverlayDefaultCount, _tileHoverOverlayMaxCount);
         }
 
         private GameObject CreateTileHoverOverlay()
@@ -59,33 +60,37 @@ namespace _Script.Tile
             return Instantiate(_tileHoverOverlay);
         }
 
-
         private void OnEnable()
         {
+            _ia_mouseClick.performed += RemoveOldHoverPath;
             _hoverInputHandler.OnHoverPerformed += OnHoverPerformed;
             _hoverInputHandler.OnHoverCanceled += OnHoverCanceled;
         }
 
-
         private void OnDisable()
         {
+            _ia_mouseClick.performed -= RemoveOldHoverPath;
             _hoverInputHandler.OnHoverPerformed -= OnHoverPerformed;
             _hoverInputHandler.OnHoverCanceled -= OnHoverCanceled;
         }
 
         private void OnHoverPerformed(Vector2 inputWorldPos)
         {
-            if (_so_state_player_current.Value != _so_state_player_selected)
-                return;
-        
-            int dictIndex = FindSelectedTileDictIndex(inputWorldPos);
-
-            if (dictIndex != -1 && dictIndex != _lastTileDictIndex)
+            if (_so_state_player_current.Value == _so_state_player_selected)
             {
-                if(_lastTileDictIndex != -1)
-                    RemoveOldHoverPath();
-                PredictPathForPlayer(dictIndex);
-                _lastTileDictIndex = dictIndex;
+                int dictIndex = FindSelectedTileDictIndex(inputWorldPos);
+
+                if (dictIndex != -1 && dictIndex != _lastTileDictIndex)
+                {
+                    if (_lastTileDictIndex != -1)
+                        RemoveOldHoverPath();
+                    PredictPathForPlayer(dictIndex);
+                    _lastTileDictIndex = dictIndex;
+                }
+            }
+            else
+            {
+                RemoveOldHoverPath();
             }
         }
 
@@ -115,6 +120,7 @@ namespace _Script.Tile
                 tileHoverOverlay.transform.position = _baseTilemap.GetCellCenterWorld(groundTileData.Coord);
                 _instantiatedTileHoverOverlays.Add(tileHoverOverlay);
             }
+
             _baseTilemap.RefreshAllTiles();
         }
 
@@ -142,7 +148,17 @@ namespace _Script.Tile
                 _instantiatedTileHoverOverlays.Remove(instantiated);
             }
         }
-        
+
+        private void RemoveOldHoverPath(InputAction.CallbackContext context)
+        {
+            for (int i = _instantiatedTileHoverOverlays.Count - 1; i >= 0; i--)
+            {
+                GameObject instantiated = _instantiatedTileHoverOverlays[i];
+                _pool_tileHoverOverlays.Release(instantiated);
+                _instantiatedTileHoverOverlays.Remove(instantiated);
+            }
+        }
+
         private void OnHoverCanceled()
         {
         }
