@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class HoverInputHandler : MonoBehaviour, IHoverable
 {
-    public Action OnHover { get; set; }
+    public Action<Vector2> OnHoverPerformed { get; set; }
+    public Action OnHoverCanceled { get; set; }
 }
