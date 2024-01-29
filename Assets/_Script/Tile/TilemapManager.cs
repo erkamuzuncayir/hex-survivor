@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Script.Actors;
-using _Script.PersonalAPI.Event;
+using _Script.Event;
 using _Script.PersonalAPI.Input;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -21,7 +21,7 @@ namespace _Script.Tile
         [SerializeField] private IntEventSO _so_event_SelectedTileDictIndex;
 
         [SerializeField] private PlayerDataSO _playerDataSO;
-        
+
         private void Awake()
         {
             BoundsInt baseTilemapBounds = _baseTilemap.cellBounds;
@@ -41,11 +41,28 @@ namespace _Script.Tile
             _clickInputHandler.OnClickPerformed -= OnMouseClickPerformed;
         }
 
+        private void OnMouseClickPerformed(Vector2 inputWorldPos)
+        {
+            int dictIndex = FindSelectedTileDictIndex(inputWorldPos);
+            if (dictIndex != -1)
+                _so_event_SelectedTileDictIndex.Raise(dictIndex);
+        }
+
+        private int FindSelectedTileDictIndex(Vector2 inputWorldPos)
+        {
+            Vector3Int destinationCoord = _baseTilemap.WorldToCell(inputWorldPos);
+            foreach (TileKeyValuePair groundTile in _so_tileDictionary.GroundTiles)
+                if (groundTile.Coord == destinationCoord)
+                    return groundTile.DictIndex;
+
+            return -1;
+        }
+
         private void Start()
         {
             SetPlayerTileDictIndex();
         }
-        
+
         // TODO: Maybe move this into Player.cs
         private void SetPlayerTileDictIndex()
         {
@@ -71,13 +88,14 @@ namespace _Script.Tile
                 Vector3Int cellPosition = new(x, y, 0);
 
                 GroundTile tile = _baseTilemap.GetTile<GroundTile>(cellPosition);
-                if (tile == null) continue;
-                
+                if (tile == null) 
+                    continue;
+
                 Vector3Int coord = new(x, y, 0);
                 Vector3 tileWorldPos = _baseTilemap.CellToWorld(coord);
-                
+
                 bool isTilePopulated = tile.Type is TileType.Building or TileType.Water;
-                
+
                 _so_tileDictionary.GroundTiles[tileDictIndex] = new TileKeyValuePair(tileDictIndex, coord,
                     new GroundTileData(tileDictIndex, tileWorldPos, coord, tile.Type, isTilePopulated));
                 tileDictIndex++;
@@ -90,17 +108,15 @@ namespace _Script.Tile
         {
             for (int i = 0; i < _so_tileDictionary.GroundTiles.Length; i++)
             {
-                TileKeyValuePair groundTile = _so_tileDictionary.GroundTiles[i];;
+                TileKeyValuePair groundTile = _so_tileDictionary.GroundTiles[i];
                 List<GroundTileData> neighbors = new();
                 List<Vector3Int> neighborPositions = GetNeighborPositions(groundTile.Coord);
 
                 for (int k = 0; k < _so_tileDictionary.GroundTiles.Length; k++)
                 {
                     TileKeyValuePair otherTile = _so_tileDictionary.GroundTiles[k];
-                    if (neighborPositions.Contains(otherTile.Coord))
-                    {
+                    if (neighborPositions.Contains(otherTile.Coord)) 
                         neighbors.Add(otherTile.GroundTileData);
-                    }
                 }
 
                 groundTile.GroundTileData.Neighbors = neighbors;
@@ -131,16 +147,6 @@ namespace _Script.Tile
             }
 
             return neighborPositions;
-        }
-
-        private void OnMouseClickPerformed(Vector2 inputWorldPos)
-        {
-            Vector3Int destinationCoord = _baseTilemap.WorldToCell(inputWorldPos);
-            foreach (TileKeyValuePair groundTile in _so_tileDictionary.GroundTiles)
-            {
-                if(groundTile.Coord == destinationCoord)
-                    _so_event_SelectedTileDictIndex.Raise(groundTile.DictIndex);
-            }
         }
     }
 }
