@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23d99d211fecf1147a277aff6e07606e, type: 3}
-  m_Name: PlayerData
+  m_Name: so_playerData
   m_EditorClassIdentifier: 
   PlayerCoord: {x: 0, y: 0, z: 0}
   PlayerTileDictIndex: 106
