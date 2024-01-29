@@ -6,6 +6,7 @@ using _Script.System.StateSystem.State.PlayerState;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Pool;
 using UnityEngine.Tilemaps;
 using NotImplementedException = System.NotImplementedException;
 
@@ -13,9 +14,18 @@ namespace _Script.Tile
 {
     public class GroundTilemapHover : MonoBehaviour
     {
+        // Pool
+        private ObjectPool<GameObject> _pool_tileHoverOverlays;
+        [SerializeField] private GameObject _tileHoverOverlay;
+        private const bool _COLLECTION_CHECK = true;
+        [SerializeField] private int _tileHoverOverlayDefaultCount;
+        [SerializeField] private int _tileHoverOverlayMaxCount;
+        private List<GameObject> _instantiatedTileHoverOverlays = new();
+        
         // Input Handler
         private InputAction _ia_mousePosition;
         [SerializeField] private HoverInputHandler _hoverInputHandler;
+        // TODO: Add if player click somewhere hover will be end.
 
         // Tilemap
         [SerializeField] private Tilemap _baseTilemap;
@@ -30,10 +40,26 @@ namespace _Script.Tile
         [SerializeField] private PathfindingSystemSO _so_system_pathfinding;
         private List<GroundTileData> _highlightedPath = new();
         private int _lastTileDictIndex = -1;
-    
-        // TODO: Add Cursor texture onto hover path
-        [SerializeField] 
         
+        private void Awake()
+        {
+            CreateTileHoverOverlayPool();
+        }
+
+        private void CreateTileHoverOverlayPool()
+        {
+            _tileHoverOverlayDefaultCount = _so_playerData.MaxMoveCount;
+            _tileHoverOverlayMaxCount = _so_playerData.MaxMoveCount * 5 /*TODO: add max move count in game settings */;
+            _pool_tileHoverOverlays = new ObjectPool<GameObject>(CreateTileHoverOverlay, OnGetTileHoverOverlayFromPool,
+                OnReturnTileHoverOverlayToPool, OnDestroyTileHoverOverlay, _COLLECTION_CHECK, _tileHoverOverlayDefaultCount, _tileHoverOverlayMaxCount);
+        }
+
+        private GameObject CreateTileHoverOverlay()
+        {
+            return Instantiate(_tileHoverOverlay);
+        }
+
+
         private void OnEnable()
         {
             _hoverInputHandler.OnHoverPerformed += OnHoverPerformed;
@@ -56,6 +82,8 @@ namespace _Script.Tile
 
             if (dictIndex != -1 && dictIndex != _lastTileDictIndex)
             {
+                if(_lastTileDictIndex != -1)
+                    RemoveOldHoverPath();
                 PredictPathForPlayer(dictIndex);
                 _lastTileDictIndex = dictIndex;
             }
@@ -83,25 +111,40 @@ namespace _Script.Tile
             for (int i = 0; i < moveCount; i++)
             {
                 GroundTileData groundTileData = _highlightedPath[i];
-                _baseTilemap.GetTile<GroundTile>(groundTileData.Coord).color = Color.red;
-                Debug.Log("redd");
+                _pool_tileHoverOverlays.Get(out GameObject tileHoverOverlay);
+                tileHoverOverlay.transform.position = _baseTilemap.GetCellCenterWorld(groundTileData.Coord);
+                _instantiatedTileHoverOverlays.Add(tileHoverOverlay);
             }
             _baseTilemap.RefreshAllTiles();
         }
 
-        private void OnHoverCanceled()
+        private void OnGetTileHoverOverlayFromPool(GameObject obj)
         {
-            
+            obj.SetActive(true);
         }
 
-        [Button]
-        public void ClearTileColor()
+        private void OnReturnTileHoverOverlayToPool(GameObject obj)
         {
-            foreach (TileKeyValuePair tileKeyValuePair in _so_tileDictionary.GroundTiles)
+            obj.SetActive(false);
+        }
+
+        private void OnDestroyTileHoverOverlay(GameObject obj)
+        {
+            Destroy(obj);
+        }
+
+        private void RemoveOldHoverPath()
+        {
+            for (int i = _instantiatedTileHoverOverlays.Count - 1; i >= 0; i--)
             {
-                _baseTilemap.GetTile<GroundTile>(tileKeyValuePair.Coord).color = Color.white;
+                GameObject instantiated = _instantiatedTileHoverOverlays[i];
+                _pool_tileHoverOverlays.Release(instantiated);
+                _instantiatedTileHoverOverlays.Remove(instantiated);
             }
-            Debug.Log("Cleared");
+        }
+        
+        private void OnHoverCanceled()
+        {
         }
     }
 }
