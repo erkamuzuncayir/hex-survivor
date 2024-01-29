@@ -1,26 +1,22 @@
-using System.Threading.Tasks;
 using _Script.Actors;
-using _Script.PersonalAPI.Event;
+using _Script.Event;
 using _Script.PersonalAPI.StateMachine;
 using _Script.System.StateSystem.StateMachine;
 using UnityEngine;
 using UnityEngine.Events;
-using NotImplementedException = System.NotImplementedException;
 
 namespace _Script.System.StateSystem.State.PlayerState
 {
-    [CreateAssetMenu (fileName = "IdleSelectedPlayerStateSO", menuName = "System/State/Player/Idle-Selected")]
+    [CreateAssetMenu(fileName = "IdleSelectedPlayerStateSO", menuName = "System/State/Player/Idle-Selected")]
     public class IdleSelectedPlayerStateSO : PlayerStateSO
     {
-        [Header("Systems")] 
-        private PlayerStateMachine _playerStateMachine;
+        [Header("Systems")] private PlayerStateMachine _playerStateMachine;
 
-        [Header("Events")]
-        [SerializeField] private IntEventSO _so_event_SelectedTileDictIndex;
+        [Header("Events")] [SerializeField] private IntEventSO _so_event_SelectedTileDictIndex;
 
         private UnityEvent<int> _event_SelectedTileDictIndex;
         [SerializeField] private PlayerDataSO _playerDataSO;
-        
+
         public override void InitState(IStateMachine<PlayerStateMachine, PlayerStateSO> stateMachine)
         {
             _playerStateMachine = (PlayerStateMachine)stateMachine;
@@ -52,4 +48,3 @@ namespace _Script.System.StateSystem.State.PlayerState
         }
     }
 }
- 
