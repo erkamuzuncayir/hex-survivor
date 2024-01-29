@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70796445993c0fb4aada8945aa792469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  so_ref_state_Player_Current: {fileID: 11400000, guid: f0ca997c3f2f1664e993574d5dc36beb, type: 2}
   so_state_PlayerIdle_Unselected: {fileID: 11400000, guid: e32ec6347393ebb408f01598aaaa06bb, type: 2}
   so_state_PlayerIdle_Selected: {fileID: 11400000, guid: 5becca22d380258498afca628973c1ad, type: 2}
   so_state_PlayerOffTurn: {fileID: 11400000, guid: 579ded08f1e8bba4fbeb4043dd939f5e, type: 2}
