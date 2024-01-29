@@ -69,7 +69,6 @@ namespace _Script.Input
             if (hit.collider == null) return;
             if (!hit.collider.gameObject.TryGetComponent(out HoverInputHandler hoverInputHandler)) return;
 
-            Debug.Log(inputWorldPos);
             if (_lastHoveredGOHoverInputHandler != null)
                 _lastHoveredGOHoverInputHandler.OnHoverCanceled();
 
