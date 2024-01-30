@@ -36,7 +36,6 @@ namespace _Script.System.StateSystem.State.PlayerState
 
         private void OnTargetTileSelected(int selectedTileDictIndex)
         {
-            Debug.Log(selectedTileDictIndex);
             _playerDataSO.TargetTileDictIndex = selectedTileDictIndex;
             _playerStateMachine.HandleState(_playerStateMachine.so_state_PlayerMove);
         }
