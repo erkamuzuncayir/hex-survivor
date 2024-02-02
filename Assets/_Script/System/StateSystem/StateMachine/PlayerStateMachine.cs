@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Script.Actors;
 using _Script.Data;
+using _Script.PersonalAPI.Event;
 using _Script.PersonalAPI.Input;
 using _Script.PersonalAPI.StateMachine;
 using _Script.System.StateSystem.State.PlayerState;
@@ -23,6 +24,9 @@ namespace _Script.System.StateSystem.StateMachine
         // Input Handler
         [SerializeField] private ClickInputHandler _clickInputHandler;
 
+        // Event
+        [SerializeField] private ParamEventSO<PlayerStateSO> _so_event_playerStateSO_changed;
+        
         // Cache fields
         [SerializeField] private GameObject _go_player;
         [SerializeField] private PlayerDataSO _playerDataSO;
@@ -89,6 +93,7 @@ namespace _Script.System.StateSystem.StateMachine
             so_state_player_current = requestedState;
             so_ref_state_Player_Current.Value = requestedState;
             so_state_player_current.EnterState();
+            _so_event_playerStateSO_changed.Raise(so_state_player_current);
         }
 
         public void ProcessState(PlayerStateSO requestedState)
