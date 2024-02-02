@@ -20,6 +20,7 @@ namespace _Script.Tile
         public Vector3 WorldPosition { get; set; }
         public Vector3Int Coord { get; set; }
         public TileType TypeOfTile { get; private set; }
+        public bool IsPlayerOnIt { get; set; }
         public bool IsPopulated { get; set; }
         [NonSerialized] public List<GroundTileData> Neighbors = new ();
 
