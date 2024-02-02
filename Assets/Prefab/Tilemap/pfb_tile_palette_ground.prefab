@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4018337941113255288}
   - component: {fileID: 2503531430525188555}
   m_Layer: 0
-  m_Name: pfb_tile_palette_base
+  m_Name: pfb_tile_palette_ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

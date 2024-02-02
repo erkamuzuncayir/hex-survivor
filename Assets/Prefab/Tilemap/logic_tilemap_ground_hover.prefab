@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5012996913684144101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2886123703192013451}
+  - component: {fileID: 6637342617385550314}
+  - component: {fileID: 1132799022756540749}
+  - component: {fileID: 719792573509957009}
+  m_Layer: 9
+  m_Name: logic_tilemap_ground_hover
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2886123703192013451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012996913684144101}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6637342617385550314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012996913684144101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2c55f9da73259468d68e8f25c9fc84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tileHoverOverlay_piece: {fileID: 8050496482219532484, guid: bf99182ac69cc7e8c82ca8d33ea084fb, type: 3}
+  _tileHoverOverlayDefaultCount: 4
+  _tileHoverOverlayMaxCount: 8
+  _tileHoverOverlay_piece_last: {fileID: 0}
+  _hoverInputHandler: {fileID: 0}
+  _baseTilemap: {fileID: 0}
+  _so_tileDictionary: {fileID: 11400000, guid: 8546deb7af6566e4c8edd1ae3d0cfbbe, type: 2}
+  _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
+  _so_state_player_selected: {fileID: 11400000, guid: 5becca22d380258498afca628973c1ad, type: 2}
+  _so_state_player_move: {fileID: 11400000, guid: 0d608386030bcbc4e8f2253dfe62bda5, type: 2}
+  _so_state_player_current: {fileID: 11400000, guid: f0ca997c3f2f1664e993574d5dc36beb, type: 2}
+  _so_system_pathfinding: {fileID: 11400000, guid: df96c8518164d04e0a71bc3f0c2f0e8f, type: 2}
+--- !u!114 &1132799022756540749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012996913684144101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1593b982b649d6b42b46597794f3fcd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventSO: {fileID: 11400000, guid: c2c511ca7fdc7e5449a6d821ee060743, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6637342617385550314}
+        m_TargetAssemblyTypeName: _Script.Tile.GroundTilemapHover, Assembly-CSharp
+        m_MethodName: RemoveOldHoverPath
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &719792573509957009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012996913684144101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 504e70943cff6104cb9822cde9bce8e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventSO: {fileID: 11400000, guid: 760d630aff997fd4f829b0655dd2ae20, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6637342617385550314}
+        m_TargetAssemblyTypeName: _Script.Tile.GroundTilemapHover, Assembly-CSharp
+        m_MethodName: RemovePassedTileHoverOverlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

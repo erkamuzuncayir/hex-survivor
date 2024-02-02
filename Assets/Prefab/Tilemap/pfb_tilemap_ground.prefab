@@ -15,10 +15,9 @@ GameObject:
   - component: {fileID: 3870070307541409115}
   - component: {fileID: 7695271777593543526}
   - component: {fileID: 8475883921364268498}
-  - component: {fileID: 5573206834714079985}
   - component: {fileID: 5934487487472082257}
   m_Layer: 9
-  m_Name: pfb_tilemap_base
+  m_Name: pfb_tilemap_ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +35,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 695501816155044936}
+  - {fileID: 1412196372643514950}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1839735485 &186612256123148495
@@ -2788,38 +2789,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameObjectRuntimeSet: {fileID: 11400000, guid: 14d0992dd46c8d7418a0c21785ec76fb, type: 2}
---- !u!114 &5573206834714079985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2898071957518018208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da2c55f9da73259468d68e8f25c9fc84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tileHoverOverlay: {fileID: 5951189018986693620, guid: 4a95f366af5e8a23a89f0909ad15cbdc, type: 3}
-  _tileHoverOverlayDefaultCount: 4
-  _tileHoverOverlayMaxCount: 8
-  _hoverInputHandler: {fileID: 5934487487472082257}
-  _mouseClickReference: {fileID: 2453145383408150615, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
-  _ia_mouseClick:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: aa3c29db-2ae0-4de2-96c1-60d559844c73
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-  _baseTilemap: {fileID: 186612256123148495}
-  _so_tileDictionary: {fileID: 11400000, guid: 8546deb7af6566e4c8edd1ae3d0cfbbe, type: 2}
-  _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
-  _so_state_player_selected: {fileID: 11400000, guid: 5becca22d380258498afca628973c1ad, type: 2}
-  _so_state_player_current: {fileID: 11400000, guid: f0ca997c3f2f1664e993574d5dc36beb, type: 2}
-  _so_system_pathfinding: {fileID: 11400000, guid: df96c8518164d04e0a71bc3f0c2f0e8f, type: 2}
 --- !u!114 &5934487487472082257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2832,3 +2801,144 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d44433bf71779d449be1e6f82e5b974c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &4293253333769732301
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2123441090738407980}
+    m_Modifications:
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5012996913684144101, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: m_Name
+      value: logic_tilemap_ground_hover
+      objectReference: {fileID: 0}
+    - target: {fileID: 6637342617385550314, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: _baseTilemap
+      value: 
+      objectReference: {fileID: 186612256123148495}
+    - target: {fileID: 6637342617385550314, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: _hoverInputHandler
+      value: 
+      objectReference: {fileID: 5934487487472082257}
+    - target: {fileID: 6637342617385550314, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+      propertyPath: _tileHoverOverlay_piece_last
+      value: 
+      objectReference: {fileID: 3057185161400537863}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+--- !u!4 &1412196372643514950 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2886123703192013451, guid: c4feb9107153d2c25afa285fb207aad2, type: 3}
+  m_PrefabInstance: {fileID: 4293253333769732301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5940383880638525819
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2123441090738407980}
+    m_Modifications:
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.824175
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8655133564023972476, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+      propertyPath: m_Name
+      value: pfb_tile_hover_overlay_piece_last
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+--- !u!4 &695501816155044936 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6617635710719823155, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+  m_PrefabInstance: {fileID: 5940383880638525819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3057185161400537863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8655133564023972476, guid: 89220bfe85cd24c3d98c686dc738a017, type: 3}
+  m_PrefabInstance: {fileID: 5940383880638525819}
+  m_PrefabAsset: {fileID: 0}
