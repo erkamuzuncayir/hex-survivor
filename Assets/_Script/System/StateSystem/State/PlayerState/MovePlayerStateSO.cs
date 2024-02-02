@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Script.Actors;
 using _Script.PersonalAPI.Data.RuntimeSet;
+using _Script.PersonalAPI.Event;
 using _Script.PersonalAPI.StateMachine;
 using _Script.System.StateSystem.StateMachine;
 using _Script.Tile;
@@ -12,17 +13,20 @@ namespace _Script.System.StateSystem.State.PlayerState
     [CreateAssetMenu(fileName = "MovePlayerStateSO", menuName = "System/State/Player/Move")]
     public class MovePlayerStateSO : PlayerStateSO
     {
-        [Header("Systems")] private PlayerStateMachine _playerStateMachine;
+        [Header("Systems")] 
         [SerializeField] private PathfindingSystemSO _so_system_pathfinding;
-
+        private PlayerStateMachine _playerStateMachine;
+        
+        [Header("Runtime Sets")]
         [SerializeField] private GameObjectRuntimeSet _so_rs_player;
         [SerializeField] private PlayerDataSO _so_playerData;
 
+        [Header("Events")] 
+        [SerializeField] private VoidEventSO _so_event_player_moved;
+       
+        // Cache Fields
         private Transform _playerTransform;
         private List<GroundTileData> _movementPath;
-
-        private float _movementTime;
-        private float _waitingBetweenMoveTime;
 
         public override void InitState(IStateMachine<PlayerStateMachine, PlayerStateSO> stateMachine)
         {
@@ -46,7 +50,9 @@ namespace _Script.System.StateSystem.State.PlayerState
                 _so_playerData.Move();
                 _so_playerData.PlayerTileDictIndex = groundTileData.DictIndex;
                 _so_playerData.TileUnderThePlayer = groundTileData;
+                groundTileData.IsPlayerOnIt = true;
                 await UniTask.Delay(1000);
+                _so_event_player_moved.Raise();
             }
 
             _movementPath.Clear();

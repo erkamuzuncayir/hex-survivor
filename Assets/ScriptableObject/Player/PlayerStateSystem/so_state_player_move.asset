@@ -15,3 +15,4 @@ MonoBehaviour:
   _so_system_pathfinding: {fileID: 11400000, guid: df96c8518164d04e0a71bc3f0c2f0e8f, type: 2}
   _so_rs_player: {fileID: 11400000, guid: bf4050acae5c0d250870b63774a5eeb1, type: 2}
   _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
+  _so_event_player_moved: {fileID: 11400000, guid: 760d630aff997fd4f829b0655dd2ae20, type: 2}
