@@ -2,25 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using _Script.Actors;
+using _Script.Enemy;
+using _Script.Level;
 using _Script.PersonalAPI.Data.RuntimeSet;
+using _Script.Tile;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
-public class EnemyManager : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {        
     // Pool
-    private ObjectPool<GameObject> _pool_enemy;
-    [SerializeField] private GameObject _pfb_enemy;
+    private List<ObjectPool<GameObject>> _pool_enemies = new();
     private const bool _COLLECTION_CHECK = true;
-    [SerializeField] private int _enemyDefaultCount;
-    [SerializeField] private int _enemyMaxCount;
     private List<GameObject> _instantiatedEnemyList = new();
-    // Cache fields
+
+    // Reference fields
+    [SerializeField] private LevelSettingsSO _so_levelSettings;
     [SerializeField] private PlayerDataSO _so_playerData;
+    [SerializeField] private TileDictionarySO _so_tileDictionary;
     [SerializeField] private GameObjectRuntimeSet _so_rs_tilemap_base;
     private Tilemap _baseTilemap;
+    
+    // Cache fields
+    private GameObject _pfb_enemyGO;
+    private EnemyController _enemyController;
+    private EnemyTypeSO _so_currentEnemyType;
     
     private void Awake()
     {
@@ -30,36 +38,44 @@ public class EnemyManager : MonoBehaviour
     
     private void CreateEnemyPool()
     {
-        _enemyDefaultCount = _so_playerData.MaxMoveCount;
-        _enemyMaxCount = _so_playerData.MaxMoveCount * 5 /*TODO: add max move count in game settings */;
-        _pool_enemy = new ObjectPool<GameObject>(CreateEnemy, OnGetEnemyFromPool,
-            OnReturnEnemyToPool, OnDestroyEnemy, _COLLECTION_CHECK,
-            _enemyDefaultCount, _enemyMaxCount);
+        for (int i = 0; i < _so_levelSettings.SpawnableEnemies.Length; i++)
+        {
+            _so_currentEnemyType = _so_levelSettings.SpawnableEnemies[i].so_Enemy;
+            int enemyMaxCount = _so_levelSettings.SpawnableEnemies[i].Count;
+            _pfb_enemyGO = _so_levelSettings.SpawnableEnemies[i].so_Enemy.EnemyPrefab;
+            _pool_enemies.Add(new ObjectPool<GameObject>(OnCreate, OnGet,
+                OnReturn, OnDestroy, _COLLECTION_CHECK,
+                enemyMaxCount, enemyMaxCount));
+        }
     }
 
-    private void OnDestroyEnemy(GameObject obj)
+    private void OnDestroy(GameObject obj)
     {
         throw new NotImplementedException();
     }
 
-    private void OnReturnEnemyToPool(GameObject obj)
+    private void OnReturn(GameObject obj)
     {
         throw new NotImplementedException();
     }
 
-    private GameObject CreateEnemy()
+    private GameObject OnCreate()
     {
-        return Instantiate(_pfb_enemy);
+        return Instantiate(_pfb_enemyGO);
     }
 
-    private void OnGetEnemyFromPool(GameObject enemy)
+    private void OnGet(GameObject enemy)
     {
         Vector3 enemyPosition = GetRandomPosition();
         enemy.transform.position = enemyPosition;
         Vector3Int enemyCoord = _baseTilemap.WorldToCell(enemyPosition);
-        //enemy.gameObject.GetComponent<Enemy>().Coord = enemyCoord;
+        _enemyController = enemy.gameObject.GetComponent<EnemyController>();
+        _enemyController.so_Type = _so_currentEnemyType;
+        _enemyController.EType = _so_currentEnemyType.EType;
+        _enemyController.Coord = enemyCoord;
+        _enemyController.CurTileDictIndex = _so_tileDictionary.GetTileData(enemyCoord).DictIndex;
+        _enemyController.Initialize();
         enemy.gameObject.SetActive(true);
-        // _movableAttributeChangeTilePos.Raise(enemyCoord);
     }
 
     
