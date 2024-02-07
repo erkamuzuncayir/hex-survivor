@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 437621680}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 1, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -432,7 +432,7 @@ Transform:
   m_GameObject: {fileID: 497431614}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 1, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -615,6 +615,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: pfb_enemy_base
       objectReference: {fileID: 0}
+    - target: {fileID: 1675319268997513807, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1456928278, guid: dd435922b6b3bfffdb4ebce252e2af97, type: 3}
+    - target: {fileID: 1675319268997513807, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5062241415218199766, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -655,6 +663,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6984514604054820959, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 09bf2dd50dd4c96bcb12cda7af05bc92, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -820,7 +832,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1946717296560988148, guid: 13f1df97fafaef647b7b6e7d586147e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1946717296560988148, guid: 13f1df97fafaef647b7b6e7d586147e1, type: 3}
       propertyPath: m_LocalPosition.y
