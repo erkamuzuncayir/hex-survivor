@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using _Script.Actors;
 using _Script.Enemy;
@@ -44,12 +43,12 @@ public class EnemySpawner : MonoBehaviour
             int enemyMaxCount = _so_levelSettings.SpawnableEnemies[i].Count;
             _pfb_enemyGO = _so_levelSettings.SpawnableEnemies[i].so_Enemy.EnemyPrefab;
             _pool_enemies.Add(new ObjectPool<GameObject>(OnCreate, OnGet,
-                OnReturn, OnDestroy, _COLLECTION_CHECK,
+                OnReturn, OnDestroyEnemy, _COLLECTION_CHECK,
                 enemyMaxCount, enemyMaxCount));
         }
     }
 
-    private void OnDestroy(GameObject obj)
+    private void OnDestroyEnemy(GameObject obj)
     {
         throw new NotImplementedException();
     }
