@@ -10,7 +10,7 @@ namespace _Script.System.StateSystem.StateMachine
     public class GameStateMachine : MonoBehaviour, IStateMachine<GameStateMachine, GameStateSO>
     {
         // State List and States
-        private List<GameStateSO> list_state_game_all;
+        private List<GameStateSO> list_state_game_all = new();
         public GameStateSOReference so_ref_state_Game_Current;
         private GameStateSO so_state_game_current;
         public GameStateSO so_state_game_MainMenu;
