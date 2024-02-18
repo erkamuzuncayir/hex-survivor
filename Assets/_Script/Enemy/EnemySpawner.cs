@@ -5,6 +5,7 @@ using _Script.Enemy;
 using _Script.Level;
 using _Script.PersonalAPI.Data.RuntimeSet;
 using _Script.Tile;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.Tilemaps;
@@ -15,7 +16,6 @@ public class EnemySpawner : MonoBehaviour
     // Pool
     private List<ObjectPool<GameObject>> _pool_enemies = new();
     private const bool _COLLECTION_CHECK = true;
-    private List<GameObject> _instantiatedEnemyList = new();
 
     // Reference fields
     [SerializeField] private LevelSettingsSO _so_levelSettings;
@@ -29,10 +29,11 @@ public class EnemySpawner : MonoBehaviour
     private EnemyController _enemyController;
     private EnemyTypeSO _so_currentEnemyType;
     
-    private void Awake()
+    private void Start()
     {
-        _baseTilemap = _so_rs_tilemap_base.Items[0].GetComponent<Tilemap>();
+        _baseTilemap = _so_rs_tilemap_base.Items[0].GetComponent<Tilemap>(); 
         CreateEnemyPool();
+        SpawnEnemies();
     }
     
     private void CreateEnemyPool()
@@ -41,13 +42,24 @@ public class EnemySpawner : MonoBehaviour
         {
             _so_currentEnemyType = _so_levelSettings.SpawnableEnemies[i].so_Enemy;
             int enemyMaxCount = _so_levelSettings.SpawnableEnemies[i].Count;
-            _pfb_enemyGO = _so_levelSettings.SpawnableEnemies[i].so_Enemy.EnemyPrefab;
+            _pfb_enemyGO = _so_levelSettings.SpawnableEnemies[i].so_Enemy.pfb_EnemyParent;
             _pool_enemies.Add(new ObjectPool<GameObject>(OnCreate, OnGet,
                 OnReturn, OnDestroyEnemy, _COLLECTION_CHECK,
                 enemyMaxCount, enemyMaxCount));
         }
     }
 
+    [Button()]
+    public void SpawnEnemies()
+    {
+        for (var i = 0; i < _so_levelSettings.SpawnableEnemies.Length; i++)
+        {
+            var spawnableEnemy = _so_levelSettings.SpawnableEnemies[i];
+            for (var j = 0; j < spawnableEnemy.Count; j++) 
+                _pool_enemies[i].Get();
+        }
+    }
+    
     private void OnDestroyEnemy(GameObject obj)
     {
         throw new NotImplementedException();
@@ -65,30 +77,35 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnGet(GameObject enemy)
     {
-        Vector3 enemyPosition = GetRandomPosition();
-        enemy.transform.position = enemyPosition;
-        Vector3Int enemyCoord = _baseTilemap.WorldToCell(enemyPosition);
-        _enemyController = enemy.gameObject.GetComponent<EnemyController>();
+        _enemyController = enemy.GetComponentInChildren<EnemyController>();
+        _enemyController.Initialize();
+        Vector3 spawnPosition = GetSpawnablePosition();
+        enemy.transform.position = spawnPosition;
+        Vector3Int enemyCoord = _baseTilemap.WorldToCell(spawnPosition);
+        GroundTileData tileItWasSpawnOn = _so_tileDictionary.GetTileData(enemyCoord);
+        tileItWasSpawnOn.IsPopulated = true;
         _enemyController.so_Type = _so_currentEnemyType;
         _enemyController.EType = _so_currentEnemyType.EType;
         _enemyController.Coord = enemyCoord;
-        _enemyController.CurTileDictIndex = _so_tileDictionary.GetTileData(enemyCoord).DictIndex;
+        _enemyController.CurTileDictIndex = tileItWasSpawnOn.DictIndex;
         _enemyController.Initialize();
         enemy.gameObject.SetActive(true);
     }
-
     
-    private Vector3 GetRandomPosition()
+    private Vector3 GetSpawnablePosition()
     {
         Vector3Int randPos;
         Vector3Int playerCoord = _baseTilemap.WorldToCell(_so_playerData.PlayerCoord);
 
         do
         {
-            randPos = new Vector3Int(Random.Range(playerCoord.x - 4, playerCoord.x + 5),
-                Random.Range(playerCoord.y - 4, playerCoord.y + 5), 0);
-        } while (Vector3.Distance(randPos, playerCoord) < 3 &&
-                 _baseTilemap.HasTile(randPos));
+            randPos = new Vector3Int(
+                Random.Range(playerCoord.x - _enemyController.SpawnDistanceFromPlayer * 2,
+                    playerCoord.x + _enemyController.SpawnDistanceFromPlayer * 2),
+                Random.Range(playerCoord.y - _enemyController.SpawnDistanceFromPlayer * 2,
+                    playerCoord.y + _enemyController.SpawnDistanceFromPlayer * 2), 0);
+        } while (Vector3.Distance(randPos, playerCoord) < _enemyController.SpawnDistanceFromPlayer ||
+                 !_baseTilemap.HasTile(randPos) || _so_tileDictionary.GetTileData(randPos).IsPopulated);
 
         return _baseTilemap.CellToWorld(randPos);
     }
