@@ -1,7 +1,6 @@
 using _Script.PersonalAPI.StateMachine;
 using _Script.System.StateSystem.StateMachine;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace _Script.System.StateSystem.State.GameState
 {
@@ -10,22 +9,18 @@ namespace _Script.System.StateSystem.State.GameState
     {
         public override void InitState(IStateMachine<GameStateMachine, GameStateSO> stateMachine)
         {
-            throw new NotImplementedException();
         }
 
         public override void EnterState()
         {
-            throw new NotImplementedException();
         }
 
         public override void UpdateState()
         {
-            throw new NotImplementedException();
         }
 
         public override void ExitState()
         {
-            throw new NotImplementedException();
         }
     }
 }
