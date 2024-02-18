@@ -12,7 +12,8 @@ namespace _Script.System.StateSystem.StateMachine
     public class PlayerStateMachine : MonoBehaviour, IStateMachine<PlayerStateMachine, PlayerStateSO>
     {
         // State List and States
-        public List<IState<PlayerStateMachine, PlayerStateSO>> AllPlayerStates = new();
+        public PlayerStateMachineReference so_ref_stateMachine_Player;
+        public List<PlayerStateSO> AllPlayerStates = new();
         public PlayerStateSOReference so_ref_state_Player_Current;
         private PlayerStateSO so_state_player_current;
         public PlayerStateSO so_state_PlayerIdle_Unselected;
@@ -27,17 +28,13 @@ namespace _Script.System.StateSystem.StateMachine
         // Event
         [SerializeField] private ParamEventSO<PlayerStateSO> _so_event_playerStateSO_changed;
         
-        // Cache fields
-        [SerializeField] private GameObject _go_player;
-        [SerializeField] private PlayerDataSO _playerDataSO;
-
         private void Awake()
         {
+            so_ref_stateMachine_Player.Value = this;
             FillListWithStates();
-            _playerDataSO.PlayerCoord = Vector3Int.zero;
         }
 
-        private void FillListWithStates()
+        public void FillListWithStates()
         {
             AllPlayerStates.Add(so_state_PlayerIdle_Unselected);
             AllPlayerStates.Add(so_state_PlayerIdle_Selected);
@@ -48,7 +45,7 @@ namespace _Script.System.StateSystem.StateMachine
 
         public void InitStates()
         {
-            foreach (IState<PlayerStateMachine, PlayerStateSO> state in AllPlayerStates)
+            foreach (PlayerStateSO state in AllPlayerStates)
                 state.InitState(this);
         }
 
