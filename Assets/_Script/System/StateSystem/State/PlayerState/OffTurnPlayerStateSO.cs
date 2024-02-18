@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace _Script.System.StateSystem.State.PlayerState
 {
-    [CreateAssetMenu (fileName = "EndOfTurnPlayerStateSO", menuName = "System/State/Player/End of Turn")]
-    public class EndOfTurnPlayerStateSO : PlayerStateSO
+    [CreateAssetMenu (fileName = "OffTurnPlayerStateSO", menuName = "System/State/Player/Off Turn")]
+    public class OffTurnPlayerStateSO : PlayerStateSO
     {
         [SerializeField] private PlayerDataSO _playerDataSO;
         private PlayerStateMachine _stateMachine;
@@ -19,7 +19,6 @@ namespace _Script.System.StateSystem.State.PlayerState
         public override void EnterState()
         {
             RegenPlayerAttributes();
-            _stateMachine.HandleState(_stateMachine.so_state_PlayerIdle_Unselected);
         }
 
         private void RegenPlayerAttributes()
