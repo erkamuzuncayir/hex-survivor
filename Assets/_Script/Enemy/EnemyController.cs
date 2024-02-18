@@ -8,14 +8,16 @@ namespace _Script.Enemy
         public EnemyTypeSO so_Type;
         public EnemyType EType;
         
+        [Header("Spawn Data")]
+        public int SpawnDistanceFromPlayer { get; private set; }
+        
         [Header("Navigation Data")]
         public Vector3Int Coord; // It'll be filled first from EnemySpawner.cs
         public int CurTileDictIndex;
         public int PlayerTileDictIndex;
         public GroundTileData TileUnderTheEnemy;
-        
-        [Header("Gameplay Data")]
-        public int RemainingMoveCount;
+
+        [field: Header("Gameplay Data")] public int RemainingMoveCount { get; set; }
         public int AttackRange;
         public int Damage;
         public int Health;
@@ -48,6 +50,7 @@ namespace _Script.Enemy
             Damage = so_Type.Damage;
             Health = so_Type.Health;
             RemainingMoveCount = MaxMoveCount;
+            SpawnDistanceFromPlayer = so_Type.SpawnDistanceFromPlayer;
         }
     }
 }
