@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70796445993c0fb4aada8945aa792469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  so_ref_stateMachine_Player: {fileID: 11400000, guid: 45f6800619b2ac0bba2f9cb7d25cbde7, type: 2}
+  AllPlayerStates: []
   so_ref_state_Player_Current: {fileID: 11400000, guid: f0ca997c3f2f1664e993574d5dc36beb, type: 2}
   so_state_PlayerIdle_Unselected: {fileID: 11400000, guid: e32ec6347393ebb408f01598aaaa06bb, type: 2}
   so_state_PlayerIdle_Selected: {fileID: 11400000, guid: 5becca22d380258498afca628973c1ad, type: 2}
@@ -52,5 +54,3 @@ MonoBehaviour:
   so_state_PlayerAttack: {fileID: 11400000, guid: 9ce144c091f89844dbf7a2acf4ae9e7b, type: 2}
   _clickInputHandler: {fileID: 0}
   _so_event_playerStateSO_changed: {fileID: 11400000, guid: c2c511ca7fdc7e5449a6d821ee060743, type: 2}
-  _go_player: {fileID: 0}
-  _playerDataSO: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
