@@ -1,5 +1,6 @@
 using _Script.PersonalAPI.Data.RuntimeSet;
 using _Script.PersonalAPI.Input;
+using _Script.System.StateSystem.State.GameState;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -8,15 +9,15 @@ namespace _Script.Input
 {
     public class InputManager : MonoBehaviour
     {
-        // Camera
-        [SerializeField] private GameObjectRuntimeSet _so_rs_playerCam;
-        private Camera _playerCam;
-
         // Unity's InputSystem related
         public InputActionReference MouseLeftClickReference;
         public InputActionReference MousePositionReference;
         private InputAction _ia_mouseLeftClick;
         private InputAction _ia_mousePosition;
+
+        // Camera
+        [SerializeField] private GameObjectRuntimeSet _so_rs_playerCam;
+        private Camera _playerCam;
 
         // Layers
         [SerializeField] private LayerMask _tilemapLayer;
@@ -33,13 +34,66 @@ namespace _Script.Input
             _ia_mousePosition = MousePositionReference.action;
         }
 
-        // Subscribes InputAction methods
-        private void OnEnable()
+        public void OnGameStateChanged(GameStateSO currentGameStateSO)
         {
-            _ia_mousePosition.Enable();
+            switch (currentGameStateSO)
+            {
+                case MainMenuGameStateSO:
+                {
+                    TurnOffHoverCheck();
+                    TurnOffMousePositionTracking();
+                    TurnOnMouseLeftClick();
+                }
+                    break;
+                case PlayerTurnGameStateSO:
+                {
+                    TurnOnMouseLeftClick();
+                    TurnOnMousePositionTracking();
+                    TurnOnHoverCheck();
+                }
+                    break;
+                case EnemyTurnGameStateSO:
+                {
+                    TurnOffHoverCheck();
+                    TurnOffMousePositionTracking();
+                    TurnOffMouseLeftClick();
+                }
+                    break;
+            }
+        }
+
+        private void TurnOnMouseLeftClick()
+        {
+            TurnOffMouseLeftClick();
             _ia_mouseLeftClick.Enable();
             _ia_mouseLeftClick.performed += OnMouseLeftClickPerformed;
-            _ia_mousePosition.performed += OnMouseMoved;
+        }
+
+        private void TurnOffMouseLeftClick()
+        {
+            _ia_mouseLeftClick.performed -= OnMouseLeftClickPerformed;
+            _ia_mouseLeftClick.Disable();
+        }
+
+        private void TurnOnMousePositionTracking()
+        {
+            _ia_mousePosition.Enable();
+        }
+
+        private void TurnOffMousePositionTracking()
+        {
+            _ia_mousePosition.Disable();
+        }
+
+        private void TurnOnHoverCheck()
+        {
+            TurnOffHoverCheck();
+            _ia_mousePosition.performed += ProcessHover;
+        }
+
+        private void TurnOffHoverCheck()
+        {
+            _ia_mousePosition.performed -= ProcessHover;
         }
 
         private void Start()
@@ -50,20 +104,14 @@ namespace _Script.Input
 
         private void OnDisable()
         {
-            _ia_mouseLeftClick.performed -= OnMouseLeftClickPerformed;
-            _ia_mousePosition.performed -= OnMouseMoved;
-            _ia_mousePosition.Disable();
-            _ia_mouseLeftClick.Disable();
+            TurnOffMouseLeftClick();
+            TurnOffHoverCheck();
+            TurnOffMousePositionTracking();
         }
 
-        private void OnMouseMoved(InputAction.CallbackContext obj)
+        private void ProcessHover(InputAction.CallbackContext inputData)
         {
-            ProcessHover();
-        }
-
-        private void ProcessHover()
-        {
-            Vector2 inputWorldPos = GetInputWorldPosition();
+            Vector2 inputWorldPos = GetInputWorldPosition(inputData.ReadValue<Vector2>());
             RaycastHit2D hit = Physics2D.Raycast(inputWorldPos, Vector2.zero);
 
             if (hit.collider == null) return;
@@ -79,7 +127,7 @@ namespace _Script.Input
         // Pass inputs to related systems according to game state system.
         private void OnMouseLeftClickPerformed(InputAction.CallbackContext inputData)
         {
-            Vector2 inputWorldPos = GetInputWorldPosition();
+            Vector2 inputWorldPos = GetInputWorldPosition(_ia_mousePosition.ReadValue<Vector2>());
             RaycastHit2D hit = Physics2D.Raycast(inputWorldPos, Vector2.zero);
 
             if (hit.collider == null) return;
@@ -91,9 +139,8 @@ namespace _Script.Input
             clickInputHandler.OnClickPerformed.Invoke(inputWorldPos);
         }
 
-        private Vector2 GetInputWorldPosition()
+        private Vector2 GetInputWorldPosition(Vector2 inputScreenPos)
         {
-            Vector2 inputScreenPos = _ia_mousePosition.ReadValue<Vector2>();
             Vector2 inputWorldPos = _playerCam.ScreenToWorldPoint(inputScreenPos);
             return inputWorldPos;
         }
