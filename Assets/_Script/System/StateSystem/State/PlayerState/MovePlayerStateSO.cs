@@ -47,9 +47,9 @@ namespace _Script.System.StateSystem.State.PlayerState
             {
                 GroundTileData groundTileData = _movementPath[i];
                 ContinuousMove(groundTileData.WorldPosition);
-                _so_playerData.Move();
-                _so_playerData.PlayerTileDictIndex = groundTileData.DictIndex;
-                _so_playerData.TileUnderThePlayer = groundTileData;
+                _so_playerData.Move(groundTileData);
+                // _so_playerData.PlayerTileDictIndex = groundTileData.DictIndex;
+                // _so_playerData.TileUnderThePlayer = groundTileData;
                 groundTileData.IsPlayerOnIt = true;
                 await UniTask.Delay(1000);
                 _so_event_player_moved.Raise();
