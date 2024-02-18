@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2424343400187610402}
   - component: {fileID: 6386881301090819201}
+  - component: {fileID: 1316000650256289580}
   m_Layer: 0
   m_Name: InputHandler
   m_TagString: Untagged
@@ -44,10 +45,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f531e03e5ae2f342b6a57beeb5d2597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _so_rs_playerCam: {fileID: 11400000, guid: 0e7def6454c454b4e9d3568274e1b0e5, type: 2}
   MouseLeftClickReference: {fileID: 2453145383408150615, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
   MousePositionReference: {fileID: -1340078418098412240, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
+  _so_rs_playerCam: {fileID: 11400000, guid: 0e7def6454c454b4e9d3568274e1b0e5, type: 2}
   _tilemapLayer:
     serializedVersion: 2
     m_Bits: 512
   _so_rs_pfb_tilemap_base: {fileID: 11400000, guid: 14d0992dd46c8d7418a0c21785ec76fb, type: 2}
+--- !u!114 &1316000650256289580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490752116963058450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb5212f548041b7b7ed35ef2cacb654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventSO: {fileID: 11400000, guid: a1366cbf8f0e387bea07f375501d2e64, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6386881301090819201}
+        m_TargetAssemblyTypeName: _Script.Input.InputManager, Assembly-CSharp
+        m_MethodName: OnGameStateChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
