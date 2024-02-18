@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae5f8cf9aa1e7843846c4f40de4dd8b, type: 3}
-  m_Name: PlayerTurnGameState
+  m_Script: {fileID: 11500000, guid: abb17cfc8d9b426289311eb21ee6da9b, type: 3}
+  m_Name: so_state_game_MainMenu
   m_EditorClassIdentifier: 
