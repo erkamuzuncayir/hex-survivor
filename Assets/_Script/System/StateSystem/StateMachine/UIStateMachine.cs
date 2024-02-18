@@ -1,13 +1,19 @@
 using System.Collections.Generic;
 using _Script.PersonalAPI.StateMachine;
 using _Script.System.StateSystem.State.UIState;
+using NotImplementedException = System.NotImplementedException;
 
 namespace _Script.System.StateSystem.StateMachine
 {
     public class UIStateMachine : IStateMachine<UIStateMachine, UIStateSO>
     {
         public List<UIStateSO> CurrentUIStates { get; private set; }
-        
+
+        public void FillListWithStates()
+        {
+            throw new NotImplementedException();
+        }
+
         public void InitStates()
         {
         }
