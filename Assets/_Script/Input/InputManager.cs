@@ -111,7 +111,7 @@ namespace _Script.Input
 
         private void ProcessHover(InputAction.CallbackContext inputData)
         {
-            Vector2 inputWorldPos = GetInputWorldPosition(inputData.ReadValue<Vector2>());
+            Vector2 inputWorldPos = GetInputWorldPosition(_ia_mousePosition.ReadValue<Vector2>());
             RaycastHit2D hit = Physics2D.Raycast(inputWorldPos, Vector2.zero);
 
             if (hit.collider == null) return;
