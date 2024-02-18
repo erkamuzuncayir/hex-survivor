@@ -5,27 +5,30 @@ namespace _Script.Enemy
 {
     public enum EnemyType
     {
-        Skeleton, Knight, Archer
+        SkeletonArcher, SkeletonSpearman, SkeletonWarrior, Knight, Archer
     }
     [CreateAssetMenu(menuName = "EnemyController", fileName = "_so_enemy_type_")]
     public class EnemyTypeSO : ScriptableObject
     {
         [Header("Game Object Data")] 
-        public GameObject EnemyPrefab;
+        public GameObject pfb_EnemyParent;
         public EnemyType EType;
         
+        [Header("Spawn Data")]
+        [field: SerializeField] public int SpawnDistanceFromPlayer { get; private set; }        
+        
         [Header("Start Values")]
-        public int AttackRange { get; private set; }
-        public int Damage { get; private set; }
-        public int Health { get; private set; }
+        [field: SerializeField] public int AttackRange { get; private set; }
+        [field: SerializeField] public int Damage { get; private set; }
+        [field: SerializeField] public int Health { get; private set; }
         
         [Header("Default Values")]
-        public int MoveRegenEndOfTurn { get; private set; }
-        public int HealthRegenEndOfTurn { get; private set; }
-        public int MaxMoveCount { get; private set; }
-        public int MaxAttackRange { get; private set; }
-        public int MaxDamage { get; private set; }
-        public int MaxHealth { get; private set; }
+        [field: SerializeField] public int MoveRegenEndOfTurn { get; private set; }
+        [field: SerializeField] public int HealthRegenEndOfTurn { get; private set; }
+        [field: SerializeField] public int MaxMoveCount { get; private set; }
+        [field: SerializeField] public int MaxAttackRange { get; private set; }
+        [field: SerializeField] public int MaxDamage { get; private set; }
+        [field: SerializeField] public int MaxHealth { get; private set; }
 
         [Header("Movement Data")] 
         public float StepCountBetweenTwoTile = 0.2f;
