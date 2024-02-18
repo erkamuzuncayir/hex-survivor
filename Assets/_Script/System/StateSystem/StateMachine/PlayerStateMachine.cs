@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using _Script.Actors;
 using _Script.Data;
 using _Script.PersonalAPI.Event;
 using _Script.PersonalAPI.Input;
