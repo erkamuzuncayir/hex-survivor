@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23d99d211fecf1147a277aff6e07606e, type: 3}
   m_Name: so_playerData
   m_EditorClassIdentifier: 
-  PlayerCoord: {x: 0, y: 0, z: 0}
-  PlayerTileDictIndex: 106
+  PlayerCoord: {x: -3, y: 0, z: 0}
+  PlayerTileDictIndex: 87
   TargetTileDictIndex: 106
   RemainingMoveCount: 3
   AttackRange: 2
