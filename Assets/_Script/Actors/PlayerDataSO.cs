@@ -35,8 +35,11 @@ namespace _Script.Actors
             return RemainingMoveCount > 0;
         }
 
-        public void Move()
+        public void Move(GroundTileData tileUnderThePlayer)
         {
+            TileUnderThePlayer = tileUnderThePlayer;
+            PlayerTileDictIndex = tileUnderThePlayer.DictIndex;
+            PlayerCoord = tileUnderThePlayer.Coord;
             RemainingMoveCount--;
         }
 
