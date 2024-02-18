@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae5f8cf9aa1e7843846c4f40de4dd8b, type: 3}
   m_Name: so_state_game_PlayerTurn
   m_EditorClassIdentifier: 
+  _so_ref_stateMachine_Player: {fileID: 0}
+  _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
+  _so_rs_go_player: {fileID: 11400000, guid: bf4050acae5c0d250870b63774a5eeb1, type: 2}
