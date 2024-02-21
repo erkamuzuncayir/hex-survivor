@@ -5,6 +5,9 @@ namespace _Script.Enemy
 {
     public class EnemyController : MonoBehaviour
     {
+        [Header("Game Object")] 
+        public GameObject GO_EnemyParent;
+        
         public EnemyTypeSO so_Type;
         public EnemyType EType;
         
