@@ -16,6 +16,7 @@ namespace _Script.System.StateSystem.State.GameState
     {
         [Header("Systems")] 
         private GameStateMachine _so_stateMachine_game;
+        private PlayerStateMachine _so_stateMachine_player;
 
         [Header("Runtime Sets")]
         [SerializeField] private RuntimeSet<GameObject> _so_rs_go_player;
@@ -33,6 +34,7 @@ namespace _Script.System.StateSystem.State.GameState
         public override void InitState(IStateMachine<GameStateMachine, GameStateSO> stateMachine)
         {
             _so_stateMachine_game = (GameStateMachine)stateMachine;
+            _so_stateMachine_player = _so_ref_stateMachine_Player.Value;
             _go_player = _so_rs_go_player.Items[0];
             SetPlayerInitialCoordToPlayerData();
         }
@@ -47,6 +49,7 @@ namespace _Script.System.StateSystem.State.GameState
         {
             _so_event_playerStateSO_changed.RegisterListenerDirectly(_bridge_event_playerStateSO_changed);
             _bridge_event_playerStateSO_changed.AddListener(OnPlayerStateChanged);
+            _so_stateMachine_player.HandleState(_so_stateMachine_player.so_state_PlayerIdle_Unselected);
         }
 
         private void OnPlayerStateChanged(PlayerStateSO currentPlayerStateSO)
