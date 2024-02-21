@@ -7,7 +7,7 @@ namespace _Script.Enemy
     {
         SkeletonArcher, SkeletonSpearman, SkeletonWarrior, Knight, Archer
     }
-    [CreateAssetMenu(menuName = "EnemyController", fileName = "_so_enemy_type_")]
+    [CreateAssetMenu(menuName = "Enemy/Enemy Type", fileName = "_so_enemy_type_")]
     public class EnemyTypeSO : ScriptableObject
     {
         [Header("Game Object Data")] 
