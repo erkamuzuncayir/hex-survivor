@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3738551975172256932}
   - component: {fileID: 5103147638255840526}
+  - component: {fileID: 7822280217978949462}
   m_Layer: 0
   m_Name: logic_enemyController
   m_TagString: Untagged
@@ -44,15 +45,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16273dd99e0494195ce8cb5314c0bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GO_EnemyParent: {fileID: 0}
   so_Type: {fileID: 0}
   EType: 0
   Coord: {x: 0, y: 0, z: 0}
   CurTileDictIndex: 0
   PlayerTileDictIndex: 0
-  RemainingMoveCount: 0
   AttackRange: 0
   Damage: 0
   Health: 0
   MoveRegenEndOfTurn: 0
   HealthRegenEndOfTurn: 0
   StepCountBetweenTwoTile: 0
+--- !u!114 &7822280217978949462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385477510650631167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f3a8239c28e4beabb87e9ed5bfbb9de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyControllerRuntimeSet: {fileID: 11400000, guid: 930fd37bc4a4784ad914658aa0e3a204, type: 2}
