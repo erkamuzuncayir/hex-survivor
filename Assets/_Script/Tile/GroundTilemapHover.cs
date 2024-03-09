@@ -51,8 +51,8 @@ namespace _Script.Tile
 
         private void CreateTileHoverOverlayPool()
         {
-            _tileHoverOverlayDefaultCount = _so_playerData.MaxMoveCount;
-            _tileHoverOverlayMaxCount = _so_playerData.MaxMoveCount * 5 /*TODO: add max move count in game settings */;
+            _tileHoverOverlayDefaultCount = _so_playerData.DefMoveCount;
+            _tileHoverOverlayMaxCount = _so_playerData.DefMoveCount * 5 /*TODO: add max move count in game settings */;
             _pool_tileHoverOverlay_piece = new ObjectPool<GameObject>(CreateTileHoverOverlay, OnGetTileHoverOverlayFromPool,
                 OnReturnTileHoverOverlayToPool, OnDestroyTileHoverOverlay, _COLLECTION_CHECK,
                 _tileHoverOverlayDefaultCount, _tileHoverOverlayMaxCount);
@@ -103,9 +103,13 @@ namespace _Script.Tile
 
         private void PredictPathForPlayer(int targetTileDictIndex)
         {
-            _highlightedPath =
-                _so_system_pathfinding.FindPath(_so_playerData.PlayerTileDictIndex, targetTileDictIndex);
+            bool isPathFound;
+            (isPathFound, _highlightedPath) =
+                _so_system_pathfinding.FindPath(_so_playerData.PlayerTileDictIndex, targetTileDictIndex, excludeActors: false);
 
+            if (!isPathFound)
+                return;
+            
             int moveCount = _highlightedPath.Count;
             if (_highlightedPath.Count > _so_playerData.RemainingMoveCount)
                 moveCount = _so_playerData.RemainingMoveCount;
