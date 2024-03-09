@@ -12,16 +12,6 @@ namespace _Script.Tile
         {
             GroundTiles = new TileKeyValuePair[tileCount];
         }
-
-        public GroundTileData GetTileData(int index, Vector3Int coord)
-        {
-            if (GroundTiles[index].Coord == coord)
-                return GroundTiles[index].GroundTileData;
-            
-            Debug.LogError($"there is no tile on {coord}!");
-            return new EmptyGroundTile(-1, Vector3.zero, Vector3Int.zero, TileType.Empty, false);
-        }
-
         
         public GroundTileData GetTileData(Vector3Int coord)
         {
@@ -30,8 +20,28 @@ namespace _Script.Tile
                     return GroundTiles[i].GroundTileData;
             
             Debug.LogError($"there is no tile on {coord}!");
-            return new EmptyGroundTile(-1, Vector3.zero, Vector3Int.zero, TileType.Empty, false);
+            return new GroundTileData(-1, Vector3.zero, Vector3Int.zero, TileType.Empty, WhatIsOnIt.Nothing);
         }
+
+        public GroundTileData GetTileData(int index)
+        {
+            if (GroundTiles.Length < index)
+                return GroundTiles[index].GroundTileData;
+            
+            Debug.LogError($"there is no tile on this index {index}!");
+            return new GroundTileData(-1, Vector3.zero, Vector3Int.zero, TileType.Empty, WhatIsOnIt.Nothing);
+        }
+        
+        public GroundTileData GetTileData(int index, Vector3Int coord)
+        {
+            if (GroundTiles[index].Coord == coord)
+                return GroundTiles[index].GroundTileData;
+            
+            Debug.LogError($"there is no tile on {coord}!");
+            return new GroundTileData(-1, Vector3.zero, Vector3Int.zero, TileType.Empty, WhatIsOnIt.Nothing);
+        }
+
+        
     }
     
     [Serializable]
