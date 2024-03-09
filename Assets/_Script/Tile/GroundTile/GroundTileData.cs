@@ -13,6 +13,14 @@ namespace _Script.Tile
         Empty
     }
 
+    public enum WhatIsOnIt
+    {
+        Player,
+        Enemy,
+        Obstacle,
+        Nothing
+    }
+
     [Serializable]
     public class GroundTileData
     {
@@ -20,17 +28,16 @@ namespace _Script.Tile
         public Vector3 WorldPosition { get; set; }
         public Vector3Int Coord { get; set; }
         public TileType TypeOfTile { get; private set; }
-        public bool IsPlayerOnIt { get; set; }
-        public bool IsPopulated { get; set; }
+        public WhatIsOnIt ThisIsOnIt { get; set; }
         [NonSerialized] public List<GroundTileData> Neighbors = new ();
 
-        public GroundTileData(int dictIndex, Vector3 worldPosition, Vector3Int coord, TileType typeOfTile, bool isPopulated)
+        public GroundTileData(int dictIndex, Vector3 worldPosition, Vector3Int coord, TileType typeOfTile, WhatIsOnIt thisIsOnIt)
         {
             DictIndex = dictIndex;
             WorldPosition = worldPosition;
             Coord = coord;
             TypeOfTile = typeOfTile;
-            IsPopulated = isPopulated;
+            ThisIsOnIt = thisIsOnIt;
         }
 
         public GroundTileData Connection { get; private set; }
