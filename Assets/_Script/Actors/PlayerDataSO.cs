@@ -1,3 +1,4 @@
+using System;
 using _Script.Tile;
 using UnityEngine;
 
@@ -12,17 +13,17 @@ namespace _Script.Actors
         public int TargetTileDictIndex;
         public GroundTileData TileUnderThePlayer;
 
-        [Header("Gameplay Data")] 
-        public int RemainingMoveCount;
-        public int AttackRange;
-        public int Damage { get; }
+        [field: Header("Gameplay Data")] 
+        public int RemainingMoveCount { get; private set; }
+        public int AttackRange { get; private set; }
+        public int Damage { get; private set; }
         public int Health { get; private set; }
 
-        [Header("MinMax Values")] 
-        public int MaxAttackRange { get; private set; } = 2;
-        public int MaxMoveCount { get; } = 3;
-        public int MaxDamage { get; private set; } = 4;
-        public int MaxHealth { get; } = 5;
+        [field: Header("Default Values")] 
+        public int DefAttackRange { get; private set; } = 2;
+        public int DefMoveCount { get; } = 3;
+        public int DefDamage { get; private set; } = 4;
+        public int DefHealth { get; } = 5;
         public const int DEATH_THRESHOLD = 0;
 
         [Header("Movement Values")] public float StepCountBetweenTwoTile = .2f;
@@ -30,33 +31,43 @@ namespace _Script.Actors
         [Header("Regen in Off-Turn Values")] public int MoveRegenEndOfTurn;
         public int HealthRegenEndOfTurn;
 
+        private void OnEnable()
+        {
+            SetDefaultValuesOfGameplayData();
+        }
+
+        private void SetDefaultValuesOfGameplayData()
+        {
+            RemainingMoveCount = DefMoveCount;
+            AttackRange = DefAttackRange;
+            Damage = DefDamage;
+            Health = DefHealth;
+        }
+
         public bool CanPlayerMove()
         {
             return RemainingMoveCount > 0;
         }
 
-        public void Move(GroundTileData tileUnderThePlayer)
+        public void Moved()
         {
-            TileUnderThePlayer = tileUnderThePlayer;
-            PlayerTileDictIndex = tileUnderThePlayer.DictIndex;
-            PlayerCoord = tileUnderThePlayer.Coord;
             RemainingMoveCount--;
         }
 
         public void MoveRegen(int regenValue)
         {
-            if (RemainingMoveCount + regenValue < MaxMoveCount)
+            if (RemainingMoveCount + regenValue < DefMoveCount)
                 RemainingMoveCount += regenValue;
             else
-                RemainingMoveCount = MaxMoveCount;
+                RemainingMoveCount = DefMoveCount;
         }
 
         public void HealthRegen(int regenValue)
         {
-            if (Health + regenValue < MaxHealth)
+            if (Health + regenValue < DefHealth)
                 Health += regenValue;
             else
-                Health = MaxHealth;
+                Health = DefHealth;
         }
 
         public void DecreaseHealth(int decreaseValue)
