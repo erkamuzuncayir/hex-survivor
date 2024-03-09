@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c854b4edfa5a419888536de62c3b3129, type: 3}
   m_Name: so_state_game_EnemyTurn
   m_EditorClassIdentifier: 
+  _so_enemyManager: {fileID: 11400000, guid: cc0e77f24a966c901bd3925d2f2b3931, type: 2}
