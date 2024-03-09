@@ -14,15 +14,15 @@ namespace _Script.Enemy
         public GameObject pfb_EnemyParent;
         public EnemyType EType;
         
-        [Header("Spawn Data")]
+        [field: Header("Spawn Data")]
         [field: SerializeField] public int SpawnDistanceFromPlayer { get; private set; }        
         
-        [Header("Start Values")]
+        [field: Header("Start Values")]
         [field: SerializeField] public int AttackRange { get; private set; }
         [field: SerializeField] public int Damage { get; private set; }
         [field: SerializeField] public int Health { get; private set; }
         
-        [Header("Default Values")]
+        [field: Header("Default Values")]
         [field: SerializeField] public int MoveRegenEndOfTurn { get; private set; }
         [field: SerializeField] public int HealthRegenEndOfTurn { get; private set; }
         [field: SerializeField] public int MaxMoveCount { get; private set; }
