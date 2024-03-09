@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: so_Type
       value: 
       objectReference: {fileID: 11400000, guid: 1c5d417a18e0bc51fbb572bf878da1a2, type: 2}
+    - target: {fileID: 2752002654460056800, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 8618077152261656875}
     - target: {fileID: 5062241415218199766, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -65,3 +69,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
+--- !u!95 &8618077152261656875 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6984514604054820959, guid: db97c40f17eadd68ca804f5a117288bb, type: 3}
+  m_PrefabInstance: {fileID: 1690103873479403892}
+  m_PrefabAsset: {fileID: 0}
