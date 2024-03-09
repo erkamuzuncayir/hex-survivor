@@ -1,3 +1,15 @@
 fileFormatVersion: 2
 guid: d16273dd99e0494195ce8cb5314c0bf0
-timeCreated: 1707114257
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _so_system_pathfinding: {fileID: 11400000, guid: df96c8518164d04e0a71bc3f0c2f0e8f, type: 2}
+  - _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
+  - GO_EnemyParent: {instanceID: 0}
+  - so_Type: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
