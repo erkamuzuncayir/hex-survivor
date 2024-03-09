@@ -15,4 +15,4 @@ MonoBehaviour:
   LevelOrder: 0
   SpawnableEnemies:
   - so_Enemy: {fileID: 11400000, guid: 1c5d417a18e0bc51fbb572bf878da1a2, type: 2}
-    Count: 5
+    Count: 25
