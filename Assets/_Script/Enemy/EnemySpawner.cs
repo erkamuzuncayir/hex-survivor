@@ -83,11 +83,12 @@ public class EnemySpawner : MonoBehaviour
         enemy.transform.position = spawnPosition;
         Vector3Int enemyCoord = _baseTilemap.WorldToCell(spawnPosition);
         GroundTileData tileItWasSpawnOn = _so_tileDictionary.GetTileData(enemyCoord);
-        tileItWasSpawnOn.IsPopulated = true;
+        tileItWasSpawnOn.ThisIsOnIt = WhatIsOnIt.Enemy;
         _enemyController.so_Type = _so_currentEnemyType;
         _enemyController.EType = _so_currentEnemyType.EType;
         _enemyController.Coord = enemyCoord;
         _enemyController.CurTileDictIndex = tileItWasSpawnOn.DictIndex;
+        _enemyController.TileUnderTheEnemy = tileItWasSpawnOn;
         _enemyController.Initialize();
         enemy.gameObject.SetActive(true);
     }
@@ -105,7 +106,7 @@ public class EnemySpawner : MonoBehaviour
                 Random.Range(playerCoord.y - _enemyController.SpawnDistanceFromPlayer * 2,
                     playerCoord.y + _enemyController.SpawnDistanceFromPlayer * 2), 0);
         } while (Vector3.Distance(randPos, playerCoord) < _enemyController.SpawnDistanceFromPlayer ||
-                 !_baseTilemap.HasTile(randPos) || _so_tileDictionary.GetTileData(randPos).IsPopulated);
+                 !_baseTilemap.HasTile(randPos) || _so_tileDictionary.GetTileData(randPos).ThisIsOnIt != WhatIsOnIt.Nothing);
 
         return _baseTilemap.CellToWorld(randPos);
     }
