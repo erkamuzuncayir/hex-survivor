@@ -36,24 +36,34 @@ namespace _Script.System.StateSystem.State.PlayerState
 
         public override async void EnterState()
         {
-            _movementPath =
-                _so_system_pathfinding.FindPath(_so_playerData.PlayerTileDictIndex, _so_playerData.TargetTileDictIndex);
+            bool isPathFound;
+            (isPathFound, _movementPath) =
+                _so_system_pathfinding.FindPath(_so_playerData.PlayerTileDictIndex, _so_playerData.TargetTileDictIndex, excludeActors: false);
 
+            if (!isPathFound)
+            {
+                _playerStateMachine.HandleState(_playerStateMachine.so_state_PlayerAttack);
+                return;
+            }
+
+                
             int moveCount = _movementPath.Count;
-            if (_movementPath.Count > _so_playerData.RemainingMoveCount)
+            if (moveCount > _so_playerData.RemainingMoveCount)
                 moveCount = _so_playerData.RemainingMoveCount;
-
+            
+            _so_playerData.TileUnderThePlayer.ThisIsOnIt = WhatIsOnIt.Nothing;
             for (int i = 0; i < moveCount; i++)
             {
-                GroundTileData groundTileData = _movementPath[i];
-                ContinuousMove(groundTileData.WorldPosition);
-                _so_playerData.Move(groundTileData);
-                // _so_playerData.PlayerTileDictIndex = groundTileData.DictIndex;
-                // _so_playerData.TileUnderThePlayer = groundTileData;
-                groundTileData.IsPlayerOnIt = true;
+                GroundTileData tileUnderThePlayer = _movementPath[i];
+                ContinuousMove(tileUnderThePlayer.WorldPosition);
+                _so_playerData.Moved();
+                _so_playerData.TileUnderThePlayer = tileUnderThePlayer;
+                _so_playerData.PlayerTileDictIndex = tileUnderThePlayer.DictIndex;
+                _so_playerData.PlayerCoord = tileUnderThePlayer.Coord;
                 await UniTask.Delay(1000);
                 _so_event_player_moved.Raise();
             }
+            _so_playerData.TileUnderThePlayer.ThisIsOnIt = WhatIsOnIt.Player;
 
             _movementPath.Clear();
             _playerStateMachine.HandleState(_playerStateMachine.so_state_PlayerAttack);
