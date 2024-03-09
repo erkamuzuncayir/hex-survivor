@@ -45,12 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16273dd99e0494195ce8cb5314c0bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _so_system_pathfinding: {fileID: 11400000, guid: df96c8518164d04e0a71bc3f0c2f0e8f, type: 2}
+  _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
   GO_EnemyParent: {fileID: 0}
   so_Type: {fileID: 0}
   EType: 0
   Coord: {x: 0, y: 0, z: 0}
   CurTileDictIndex: 0
-  PlayerTileDictIndex: 0
   AttackRange: 0
   Damage: 0
   Health: 0
