@@ -20,8 +20,8 @@ MonoBehaviour:
   <Health>k__BackingField: 5
   <MoveRegenEndOfTurn>k__BackingField: 3
   <HealthRegenEndOfTurn>k__BackingField: 0
-  <MaxMoveCount>k__BackingField: 3
-  <MaxAttackRange>k__BackingField: 1
+  <MaxMoveCount>k__BackingField: 2
+  <MaxAttackRange>k__BackingField: 2
   <MaxDamage>k__BackingField: 2
   <MaxHealth>k__BackingField: 5
   StepCountBetweenTwoTile: 0.2
