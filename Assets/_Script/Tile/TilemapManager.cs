@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Script.Actors;
 using _Script.Event;
 using _Script.PersonalAPI.Input;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -31,6 +32,12 @@ namespace _Script.Tile
             SetNeighbors();
         }
 
+        [Button()]
+        public void ClearAllTiles()
+        {
+            _baseTilemap.ClearAllTiles();
+        }
+        
         private void OnEnable()
         {
             _clickInputHandler.OnClickPerformed += OnMouseClickPerformed;
@@ -94,10 +101,10 @@ namespace _Script.Tile
                 Vector3Int coord = new(x, y, 0);
                 Vector3 tileWorldPos = _baseTilemap.CellToWorld(coord);
 
-                bool isTilePopulated = tile.Type is TileType.Building or TileType.Water;
-
+                WhatIsOnIt thisIsOnIt = tile.Type is TileType.Building or TileType.Water ? WhatIsOnIt.Obstacle : WhatIsOnIt.Nothing;
+                
                 _so_tileDictionary.GroundTiles[tileDictIndex] = new TileKeyValuePair(tileDictIndex, coord,
-                    new GroundTileData(tileDictIndex, tileWorldPos, coord, tile.Type, isTilePopulated));
+                    new GroundTileData(tileDictIndex, tileWorldPos, coord, tile.Type, thisIsOnIt));
                 tileDictIndex++;
             }
 
