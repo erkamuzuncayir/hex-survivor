@@ -1,3 +1,5 @@
+using System;
+using _Script.Tile;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,10 +10,7 @@ namespace _Script.MapGeneration
     public class ProceduralTilemapGenerator : MonoBehaviour
     {
         [SerializeField] private Tilemap _groundTilemap;
-        [SerializeField] private TileBase _waterTile;
-        [SerializeField] private TileBase _beachTile;
-        [SerializeField] private TileBase _grassTile;
-        [SerializeField] private TileBase _mountainTile;
+        [SerializeField] private GroundTileThresholdPair[] _groundTileThresholdPairs;
         
         private float[,] noiseMap;
         
@@ -45,31 +44,31 @@ namespace _Script.MapGeneration
             {
                 for (int x = 0; x < width; x++)
                 {
-                    _groundTilemap.SetTile(new Vector3Int(x,y,1), SetTileBasedOnHeight(x,y));
+                    _groundTilemap.SetTile(new Vector3Int(x,y,0), SetTileBasedOnHeight(noiseMap[x,y]));
                 }
             }
+            _groundTilemap.RefreshAllTiles();
             
         }
 
-        private TileBase SetTileBasedOnHeight(int width, int height)
+        private TileBase SetTileBasedOnHeight(float perlinValue)    
         {
-            if(noiseMap[width, height] < 0.2f)
+            Array.Sort(_groundTileThresholdPairs, (x, y) => x.Threshold.CompareTo(y.Threshold));
+
+            foreach (GroundTileThresholdPair pair in _groundTileThresholdPairs)
             {
-                return _waterTile;
-            }
-            else if(noiseMap[width, height] < 0.4f)
-            {
-                return _beachTile;
+                if (pair.Threshold > perlinValue)
+                    return pair.Tile;
             }
 
-            else if(noiseMap[width, height] < 0.8f)
-            {
-                return _grassTile;
-            }
-            else
-            {
-                return _mountainTile;
-            }
+            return null;
         }
+    }
+
+    [Serializable]
+    public class GroundTileThresholdPair
+    {
+        public TileBase Tile;
+        public float Threshold;
     }
 }
