@@ -130,7 +130,6 @@ namespace _Script.Tile
             _tileHoverOverlay_piece_last.transform.position =
                 _baseTilemap.GetCellCenterWorld(_cacheGroundTileData.Coord);
             _tileHoverOverlay_piece_last.SetActive(true);
-            _baseTilemap.RefreshAllTiles();
         }
 
         private void OnGetTileHoverOverlayFromPool(GameObject obj)
