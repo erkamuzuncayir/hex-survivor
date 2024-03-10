@@ -64,20 +64,7 @@ namespace _Script.Tile
 
             return -1;
         }
-
-        private void Start()
-        {
-            SetPlayerTileDictIndex();
-        }
-
-        // TODO: Maybe move this into Player.cs
-        private void SetPlayerTileDictIndex()
-        {
-            GroundTileData tileUnderPlayer = _so_tileDictionary.GetTileData(_playerDataSO.PlayerCoord);
-            _playerDataSO.TileUnderThePlayer = tileUnderPlayer;
-            _playerDataSO.PlayerTileDictIndex = tileUnderPlayer.DictIndex;
-        }
-
+        
         private float GetTilemapSize(BoundsInt tilemapBounds)
         {
             float horSize = tilemapBounds.xMax - tilemapBounds.xMin;
