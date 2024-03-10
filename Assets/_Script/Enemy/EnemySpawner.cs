@@ -96,7 +96,7 @@ public class EnemySpawner : MonoBehaviour
     private Vector3 GetSpawnablePosition()
     {
         Vector3Int randPos;
-        Vector3Int playerCoord = _baseTilemap.WorldToCell(_so_playerData.PlayerCoord);
+        Vector3Int playerCoord = _so_playerData.PlayerCoord;
 
         do
         {
