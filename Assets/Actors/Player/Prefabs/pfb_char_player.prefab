@@ -52,7 +52,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 30
   m_ForceSendLayers:
     serializedVersion: 2
@@ -85,6 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _so_playerData: {fileID: 11400000, guid: 2a0aba134a24314e390573133cb5f630, type: 2}
+  _so_tileDictionary: {fileID: 11400000, guid: 8546deb7af6566e4c8edd1ae3d0cfbbe, type: 2}
+  _so_rs_tilemap_ground: {fileID: 11400000, guid: 14d0992dd46c8d7418a0c21785ec76fb, type: 2}
 --- !u!114 &1249315006319451290
 MonoBehaviour:
   m_ObjectHideFlags: 0
