@@ -7,7 +7,6 @@ using _Script.System.StateSystem.State.PlayerState;
 using _Script.System.StateSystem.StateMachine;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace _Script.System.StateSystem.State.GameState
 {
@@ -17,9 +16,6 @@ namespace _Script.System.StateSystem.State.GameState
         [Header("Systems")] 
         private GameStateMachine _so_stateMachine_game;
         private PlayerStateMachine _so_stateMachine_player;
-
-        [Header("Runtime Sets")]
-        [SerializeField] private RuntimeSet<GameObject> _so_rs_go_player;
         
         [Header("Events")]
         [SerializeField] private PlayerStateSOEventSO _so_event_playerStateSO_changed;
@@ -29,20 +25,11 @@ namespace _Script.System.StateSystem.State.GameState
         [SerializeField] private PlayerStateMachineReference _so_ref_stateMachine_Player;
         [SerializeField] private OffTurnPlayerStateSO _so_state_PlayerOffTurn;
         [SerializeField] private PlayerDataSO _so_playerData;
-        private GameObject _go_player;
         
         public override void InitState(IStateMachine<GameStateMachine, GameStateSO> stateMachine)
         {
             _so_stateMachine_game = (GameStateMachine)stateMachine;
             _so_stateMachine_player = _so_ref_stateMachine_Player.Value;
-            _go_player = _so_rs_go_player.Items[0];
-            SetPlayerInitialCoordToPlayerData();
-        }
-
-        private void SetPlayerInitialCoordToPlayerData()
-        {
-            var position = _go_player.transform.position;
-            _so_playerData.PlayerCoord = new Vector3Int((int)position.x, (int)position.y, (int)position.z);
         }
 
         public override void EnterState()
