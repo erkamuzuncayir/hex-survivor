@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(MapGenerator))]
-public class MapGeneratorEditor : Editor
+public class MapGeneratorEditor : UnityEditor.Editor
 {
     public override void OnInspectorGUI()
     {
@@ -11,7 +11,6 @@ public class MapGeneratorEditor : Editor
         
         if (DrawDefaultInspector())
         {
-            Debug.Log("hey");
             if(mapGen.AutoUpdate)
                 mapGen.GenerateMap();
         }
