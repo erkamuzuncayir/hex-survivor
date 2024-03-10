@@ -31,7 +31,7 @@ namespace _Script.Enemy
         public EnemyTypeSO so_Type;
         public EnemyType EType;
         
-        [field: Header("Spawn Data")]
+        [field: Header("Spawn Data"), SerializeField]
         public int SpawnDistanceFromPlayer { get; private set; }
         
         [Header("Navigation Data")]
