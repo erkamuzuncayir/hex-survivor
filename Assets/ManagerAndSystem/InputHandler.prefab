@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2424343400187610402}
-  - component: {fileID: 6386881301090819201}
+  - component: {fileID: 5394697462121868698}
   - component: {fileID: 1316000650256289580}
   m_Layer: 0
   m_Name: InputHandler
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6386881301090819201
+--- !u!114 &5394697462121868698
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1490752116963058450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f531e03e5ae2f342b6a57beeb5d2597, type: 3}
+  m_Script: {fileID: 11500000, guid: a977fca3b0f9f9f20803890422da0578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MouseLeftClickReference: {fileID: 2453145383408150615, guid: da089417b40498f45b8f0bcc424cd749, type: 3}
@@ -68,7 +68,7 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6386881301090819201}
+      - m_Target: {fileID: 5394697462121868698}
         m_TargetAssemblyTypeName: _Script.Input.InputManager, Assembly-CSharp
         m_MethodName: OnGameStateChanged
         m_Mode: 0
