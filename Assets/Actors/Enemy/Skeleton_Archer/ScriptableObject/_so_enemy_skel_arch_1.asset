@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pfb_EnemyParent: {fileID: 126540119698313613, guid: e29a1cfbba56529519fb290632f58c65, type: 3}
   EType: 0
-  <SpawnDistanceFromPlayer>k__BackingField: 3
+  <SpawnDistanceFromPlayer>k__BackingField: 10
   <AttackRange>k__BackingField: 1
   <Damage>k__BackingField: 2
   <Health>k__BackingField: 5
