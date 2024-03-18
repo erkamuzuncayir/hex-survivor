@@ -1,8 +1,6 @@
 using System;
-using _Script.Tile;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 
 namespace _Script.MapGeneration
@@ -11,13 +9,14 @@ namespace _Script.MapGeneration
     {
         [SerializeField] private Tilemap _groundTilemap;
         [SerializeField] private GroundTileThresholdPair[] _groundTileThresholdPairs;
-        
+        private TileBase[] _groundTilesToBePlaced;
+
         private float[,] noiseMap;
-        
+
         public int MapWidth;
         public int MapHeight;
         public float NoiseScale;
-        
+
         public int Octaves;
         public float Persistance;
         public float Lacunarity;
@@ -26,11 +25,12 @@ namespace _Script.MapGeneration
         public Vector2 Offset;
 
         public bool AutoUpdate;
-        
-        [Button()]
+
+        [Button]
         public void GenerateTilemap()
         {
-            noiseMap = Noise.GenerateNoiseMap(MapWidth, MapHeight, Seed, NoiseScale, Octaves, Persistance, Lacunarity, Offset);
+            noiseMap = Noise.GenerateNoiseMap(MapWidth, MapHeight, Seed, NoiseScale, Octaves, Persistance, Lacunarity,
+                Offset);
 
             FillTilemap();
         }
@@ -39,27 +39,24 @@ namespace _Script.MapGeneration
         {
             int width = noiseMap.GetLength(0);
             int height = noiseMap.GetLength(1);
-            _groundTilemap.ClearAllTiles();
+            _groundTilesToBePlaced = new TileBase[width * height];
             for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    _groundTilemap.SetTile(new Vector3Int(x,y,0), SetTileBasedOnHeight(noiseMap[x,y]));
-                }
-            }
+            for (int x = 0; x < width; x++)
+                _groundTilesToBePlaced[y * width + x] = SetTileBasedOnHeight(noiseMap[x, y]);
+            BoundsInt tilemapBound = new(0, 0, 0, width, height, 1);
+
+            _groundTilemap.ClearAllTiles();
+            _groundTilemap.SetTilesBlock(tilemapBound, _groundTilesToBePlaced);
             _groundTilemap.RefreshAllTiles();
-            
         }
 
-        private TileBase SetTileBasedOnHeight(float perlinValue)    
+        private TileBase SetTileBasedOnHeight(float perlinValue)
         {
             Array.Sort(_groundTileThresholdPairs, (x, y) => x.Threshold.CompareTo(y.Threshold));
 
             foreach (GroundTileThresholdPair pair in _groundTileThresholdPairs)
-            {
                 if (pair.Threshold > perlinValue)
                     return pair.Tile;
-            }
 
             return null;
         }
