@@ -30,8 +30,7 @@ namespace _Script.Enemy
             Debug.Log("Planning is start");
             foreach (EnemyController enemyController in _so_rs_enemyController.Items)
             { 
-                enemyController.ProcessEnemyTurn(enemyTurnState);
-                await UniTask.Yield();
+                await enemyController.ProcessEnemyTurn(enemyTurnState);
             }
             Debug.Log("Planning is done");
         }
@@ -41,9 +40,9 @@ namespace _Script.Enemy
             Debug.Log("move started");
             foreach (EnemyController enemyController in _so_rs_enemyController.Items)
             {
-                enemyController.ProcessEnemyTurn(firstStateToProcess);
-                enemyController.ProcessEnemyTurn(secondStateToProcess);
-                await UniTask.Yield();
+                await enemyController.ProcessEnemyTurn(firstStateToProcess);
+                await enemyController.ProcessEnemyTurn(secondStateToProcess);
+//                await UniTask.Yield();
             }
             Debug.Log("move done");
         }
