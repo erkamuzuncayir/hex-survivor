@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using _Script.Actors;
 using _Script.System;
 using _Script.Tile;
@@ -103,12 +104,12 @@ namespace _Script.Enemy
             SpawnDistanceFromPlayer = so_Type.SpawnDistanceFromPlayer;
         }
 
-        public void ProcessEnemyTurn(EnemyTurnState enemyTurnState)
+        public async Task ProcessEnemyTurn(EnemyTurnState enemyTurnState)
         {
             switch (enemyTurnState)
             {
-                case EnemyTurnState.Planning:
-                    Planning();
+                case EnemyTurnState.Planning: 
+                    await Task.Run(Planning);
                     break;
                 case EnemyTurnState.Move when !_willAttackDirectly:
                 {
@@ -127,10 +128,9 @@ namespace _Script.Enemy
         }
 
         [Button()]
-        private void Planning()
+        private async void Planning()
         {
-            BirdsEyeViewDistanceToPlayer =
-                _so_system_pathfinding.DistanceCheckToPlayer(CurTileDictIndex, _so_playerData.PlayerTileDictIndex,
+            BirdsEyeViewDistanceToPlayer = _so_system_pathfinding.DistanceCheckToPlayer(CurTileDictIndex, _so_playerData.PlayerTileDictIndex,
                     true);
 
             if (AttackRange >= BirdsEyeViewDistanceToPlayer)
