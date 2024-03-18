@@ -8,6 +8,13 @@ namespace _Script.System
     public class PathfindingSystemSO : ScriptableObject
     {
         [SerializeField] private TileDictionarySO _so_tileDictionary;
+        private HashSet<GroundTileData> _toSearchNeighbors = new HashSet<GroundTileData>();
+        private HashSet<GroundTileData> _processedNeighbors = new HashSet<GroundTileData>();
+        private HashSet<GroundTileData> _alternativeTargets = new HashSet<GroundTileData>();
+        private HashSet<GroundTileData> _toSearch = new HashSet<GroundTileData>();
+        private HashSet<GroundTileData> _processed = new HashSet<GroundTileData>();
+        private List<GroundTileData> _path = new List<GroundTileData>();
+        
         private GroundTileData _startTile;
         private GroundTileData _targetTile;
         private bool _isAlternateTargetSearchStarted = false;
@@ -20,29 +27,35 @@ namespace _Script.System
 
             if (path == null)
             {
-                List<GroundTileData> toSearchNeighbors = new() { _targetTile };
-                List<GroundTileData> processedNeighbors = new();
-                List<GroundTileData> alternativeTargets = new();
-                alternativeTargets.AddRange(_targetTile.Neighbors);
+                _toSearchNeighbors.Clear();
+                _toSearchNeighbors.Add(_targetTile);
+                _processedNeighbors.Clear();
+                _alternativeTargets.Clear();
+                foreach (var neighbor in _targetTile.Neighbors)
+                    _alternativeTargets.Add(neighbor);
                 GroundTileData alternateTarget;
 
                 while (path == null)
                 {
-                    if (alternativeTargets.Count < 1)
+                    if (_alternativeTargets.Count < 1)
                     {
-                        alternativeTargets.AddRange(processedNeighbors[0].Neighbors);
-                        processedNeighbors.RemoveAt(0);
+                        foreach (var neighbor in _processedNeighbors)
+                            foreach (var n in neighbor.Neighbors)
+                                _alternativeTargets.Add(n);
+                        _processedNeighbors.Clear();
                     }
 
-                    GroundTileData nearestNeighbor = alternativeTargets[0];
-                    for (int i = 1; i < alternativeTargets.Count; i++)
-                        if (alternativeTargets[i].FValue < nearestNeighbor.FValue)
-                            nearestNeighbor = alternativeTargets[i];
+                    GroundTileData nearestNeighbor = null;
+                    foreach (var neighbor in _alternativeTargets)
+                    {
+                        if (nearestNeighbor == null || neighbor.FValue < nearestNeighbor.FValue)
+                            nearestNeighbor = neighbor;
+                    }
 
                     alternateTarget = nearestNeighbor;
-                    toSearchNeighbors.Add(nearestNeighbor);
-                    processedNeighbors.Add(nearestNeighbor);
-                    alternativeTargets.Remove(nearestNeighbor);
+                    _toSearchNeighbors.Add(nearestNeighbor);
+                    _processedNeighbors.Add(nearestNeighbor);
+                    _alternativeTargets.Remove(nearestNeighbor);
                     path = SearchPath(_startTile, alternateTarget, excludeActors);
                 }
             }
@@ -55,60 +68,70 @@ namespace _Script.System
         {
             _startTile = _so_tileDictionary.GroundTiles[startTileDictIndex].GroundTileData;
             _targetTile = _so_tileDictionary.GroundTiles[targetTileDictIndex].GroundTileData;
-            List<GroundTileData> path = SearchPath(_startTile, _targetTile, excludeActors);
+            _path.Clear();
+            _path = SearchPath(_startTile, _targetTile, excludeActors);
 
-            if (path == null)
+            if (_path == null)
             {
-                List<GroundTileData> toSearchNeighbors = new() { _targetTile };
-                List<GroundTileData> processedNeighbors = new();
-                List<GroundTileData> alternativeTargets = new();
-                alternativeTargets.AddRange(_targetTile.Neighbors);
+                _toSearchNeighbors.Clear();
+                _toSearchNeighbors.Add(_targetTile);
+                _processedNeighbors.Clear();
+                _alternativeTargets.Clear();
+                foreach (var neighbor in _targetTile.Neighbors)
+                    _alternativeTargets.Add(neighbor);
                 GroundTileData alternateTarget;
 
-                while (path == null)
+                while (_path == null)
                 {
-                    if (alternativeTargets.Count < 1)
+                    if (_alternativeTargets.Count < 1)
                     {
-                        alternativeTargets.AddRange(processedNeighbors[0].Neighbors);
-                        processedNeighbors.RemoveAt(0);
+                        foreach (var neighbor in _processedNeighbors)
+                            foreach (var n in neighbor.Neighbors)
+                                _alternativeTargets.Add(n);
+                        _processedNeighbors.Clear();
                     }
 
-                    GroundTileData nearestNeighbor = alternativeTargets[0];
-                    for (int i = 1; i < alternativeTargets.Count; i++)
-                        if (alternativeTargets[i].FValue < nearestNeighbor.FValue)
-                            nearestNeighbor = alternativeTargets[i];
+                    GroundTileData nearestNeighbor = null;
+                    foreach (var neighbor in _alternativeTargets)
+                    {
+                        if (nearestNeighbor == null || neighbor.FValue < nearestNeighbor.FValue)
+                            nearestNeighbor = neighbor;
+                    }
 
                     alternateTarget = nearestNeighbor;
-                    toSearchNeighbors.Add(nearestNeighbor);
-                    processedNeighbors.Add(nearestNeighbor);
-                    alternativeTargets.Remove(nearestNeighbor);
-                    path = SearchPath(_startTile, alternateTarget, excludeActors);
+                    _toSearchNeighbors.Add(nearestNeighbor);
+                    _processedNeighbors.Add(nearestNeighbor);
+                    _alternativeTargets.Remove(nearestNeighbor);
+                    _path = SearchPath(_startTile, alternateTarget, excludeActors);
                 }
             }
 
-            path.Reverse();
-            return path.Count;
+            _path.Reverse();
+            return _path.Count;
         }        
         
         private List<GroundTileData> SearchPath(GroundTileData startTile, GroundTileData targetTile, bool excludeActors)
         {
-            List<GroundTileData> toSearch = new() { startTile };
-            List<GroundTileData> processed = new();
+            _toSearch.Clear();
+            _toSearch.Add(startTile);
+            _processed.Clear();
 
-            while (toSearch.Count > 0)
+            while (_toSearch.Count > 0)
             {
-                GroundTileData current = toSearch[0];
-                foreach (GroundTileData t in toSearch)
-                    if (t.FValue < current.FValue || (t.FValue == current.FValue && t.HValue < current.HValue))
+                GroundTileData current = null;
+                foreach (var t in _toSearch)
+                {
+                    if (current == null || t.FValue < current.FValue || (t.FValue == current.FValue && t.HValue < current.HValue))
                         current = t;
+                }
 
-                processed.Add(current);
-                toSearch.Remove(current);
+                _processed.Add(current);
+                _toSearch.Remove(current);
 
                 if (current == targetTile)
                 {
                     GroundTileData currentPathTile = targetTile;
-                    List<GroundTileData> path = new();
+                    List<GroundTileData> path = new List<GroundTileData>();
                     while (currentPathTile != startTile)
                     {
                         path.Add(currentPathTile);
@@ -122,18 +145,18 @@ namespace _Script.System
                 {
                     if(excludeActors)
                     {
-                        if (neighbor.ThisIsOnIt == WhatIsOnIt.Obstacle || processed.Contains(neighbor)) 
+                        if (neighbor.ThisIsOnIt == WhatIsOnIt.Obstacle || _processed.Contains(neighbor)) 
                             continue;
                     }
                     else
                     {
-                        if (neighbor.ThisIsOnIt != WhatIsOnIt.Nothing || processed.Contains(neighbor)) 
+                        if (neighbor.ThisIsOnIt != WhatIsOnIt.Nothing || _processed.Contains(neighbor)) 
                             continue;
                     }
                         
 
-                    bool inSearch = toSearch.Contains(neighbor);
-                    int costToNeighbor = current.GValue + current.GetDistance(neighbor);
+                    bool inSearch = _toSearch.Contains(neighbor);
+                    int costToNeighbor = current.GValue + GetManhattanDistance(current.Coord, neighbor.Coord);
 
                     if (inSearch && costToNeighbor >= neighbor.GValue) continue;
                     
@@ -142,13 +165,18 @@ namespace _Script.System
 
                     if (inSearch) continue;
                     
-                    neighbor.SetHValue(neighbor.GetDistance(targetTile));
+                    neighbor.SetHValue(GetManhattanDistance(neighbor.Coord, targetTile.Coord));
 
-                    toSearch.Add(neighbor);
+                    _toSearch.Add(neighbor);
                 }
             }
             
             return null;
+        }
+        
+        private int GetManhattanDistance(Vector3Int coord1, Vector3Int coord2)
+        {
+            return Mathf.Abs(coord1.x - coord2.x) + Mathf.Abs(coord1.y - coord2.y);
         }
     }
 }
